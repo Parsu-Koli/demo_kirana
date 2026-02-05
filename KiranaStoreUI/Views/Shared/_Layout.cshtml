@@ -81,6 +81,12 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
+                <li class="nav-item">
+                    <a href="javascript:void(0)" class="nav-link" onclick="toggleFullScreen()">
+                        <i class="bi bi-arrows-fullscreen" id="fullscreenIcon"></i> Fullscreen
+                    </a>
+                </li>
+
             <div class="collapse navbar-collapse" id="navbarNav">
                     @if (isLoggedIn)
                     {
@@ -190,6 +196,24 @@
         </div>
     </div>
 </footer>
+
+    <script>
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                // Enter Fullscreen
+                document.documentElement.requestFullscreen();
+                document.getElementById("fullscreenIcon").classList.remove("bi-arrows-fullscreen");
+                document.getElementById("fullscreenIcon").classList.add("bi-fullscreen-exit");
+            } else {
+                // Exit Fullscreen
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                    document.getElementById("fullscreenIcon").classList.remove("bi-fullscreen-exit");
+                    document.getElementById("fullscreenIcon").classList.add("bi-arrows-fullscreen");
+                }
+            }
+        }
+    </script>
 
 
 <script src="https://unpkg.com/html5-qrcode"></script>
