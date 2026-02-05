@@ -10,4 +10,12 @@
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStoreUI\Models\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStoreUI\Models\.editorconfig" />
+  </ItemGroup>
+
 </Project>

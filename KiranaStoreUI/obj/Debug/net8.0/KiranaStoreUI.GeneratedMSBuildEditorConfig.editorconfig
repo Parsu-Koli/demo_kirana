@@ -160,8 +160,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZVxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/user/Documents/progarms/Documents/JVIT/Internship/Kirana Store/KiranaStoreUI/Views/Sale/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/user/Documents/progarms/Documents/JVIT/Internship/Kirana Store/KiranaStoreUI/Views/Sale/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Documents/progarms/Documents/JVIT/Internship/Kirana Store/KiranaStoreUI/Views/Sale/ProfitByDateRange.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2FsZVxQcm9maXRCeURhdGVSYW5nZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/user/Documents/progarms/Documents/JVIT/Internship/Kirana Store/KiranaStoreUI/Views/Shared/Error.cshtml]
@@ -170,6 +178,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/user/Documents/progarms/Documents/JVIT/Internship/Kirana Store/KiranaStoreUI/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/user/Documents/progarms/Documents/JVIT/Internship/Kirana Store/KiranaStoreUI/Views/Stock/Chart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3RvY2tcQ2hhcnQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/user/Documents/progarms/Documents/JVIT/Internship/Kirana Store/KiranaStoreUI/Views/Supplier/Create.cshtml]

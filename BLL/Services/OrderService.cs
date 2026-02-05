@@ -14,7 +14,7 @@ namespace BLL.Services
 
         public void AddOrder(Order order)
         {
-            order.OrderDate = DateTime.Now;
+            //order.OrderDate = DateTime.Now;
 
             _orderRepo.Add(order);
         }

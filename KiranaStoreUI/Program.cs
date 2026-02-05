@@ -6,10 +6,10 @@
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            
             builder.Services.AddControllersWithViews();
 
-            // ✅ Enable Session
+            
             builder.Services.AddDistributedMemoryCache();
             builder.Services.AddSession(options =>
             {
@@ -18,18 +18,29 @@
                 options.Cookie.IsEssential = true;
             });
 
-            // ✅ HttpClient for API with base address
+           
             builder.Services.AddHttpClient("api", client =>
             {
-                client.BaseAddress = new Uri("https://localhost:7262/api/"); // your API URL
+                client.BaseAddress = new Uri("https://localhost:7262/api/");
             });
 
-            // Optional: IHttpContextAccessor to access session in services
+           
+
+            builder.Services.AddAuthentication("Cookies")
+                .AddCookie("Cookies", options =>
+                {
+                    options.LoginPath = "/User/Login";
+                    options.LogoutPath = "/User/Logout";
+                });
+
+            builder.Services.AddAuthorization();
+
+
             builder.Services.AddHttpContextAccessor();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
+            
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Home/Error");
@@ -41,9 +52,10 @@
 
             app.UseRouting();
 
-            // ✅ Correct middleware order
-            app.UseSession(); // session must be before anything that uses it
+            app.UseAuthentication();   // MUST be here
+            app.UseSession();
             app.UseAuthorization();
+
 
             app.MapControllerRoute(
                 name: "default",

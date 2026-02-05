@@ -6,17 +6,11 @@ using System.Net.Http.Json;
 
 namespace KiranaStoreUI.Controllers
 {
-    public class SaleController : Controller
+    public class SaleController(IHttpClientFactory factory) : Controller
     {
-        private readonly HttpClient _client;
+        private readonly HttpClient _client = factory.CreateClient("api");
 
-        public SaleController(IHttpClientFactory factory)
-        {
-            // Get configured HttpClient from factory
-            _client = factory.CreateClient("api");
-        }
-
-        // ✅ Helper: Attach JWT token to HttpClient
+        // ---------------- JWT Helper ----------------
         private void AddJwtToken()
         {
             var token = HttpContext.Session.GetString("JWToken");
@@ -50,11 +44,10 @@ namespace KiranaStoreUI.Controllers
             return View(sales);
         }
 
-        // ---------------- CREATE PAGE ----------------
+        // ---------------- CREATE ----------------
         public async Task<IActionResult> Create()
         {
             AddJwtToken();
-
             string nextInvoice = await _client.GetStringAsync("Sale/GetNextInvoice");
 
             var vm = new SaleCustomerVM
@@ -63,7 +56,7 @@ namespace KiranaStoreUI.Controllers
                 {
                     InvoiceNumber = nextInvoice,
                     SaleDate = DateTime.Now,
-                    SaleItems = new List<SaleItem>() // initialize empty list
+                    SaleItems = new List<SaleItem>()
                 },
                 Customer = new Customer()
             };
@@ -83,7 +76,7 @@ namespace KiranaStoreUI.Controllers
                 return View(vm);
             }
 
-            // Step 1: Create Customer
+            // 1️⃣ Create Customer
             var custResponse = await _client.PostAsJsonAsync("Customer/AddCustomer", vm.Customer);
             if (!custResponse.IsSuccessStatusCode)
             {
@@ -102,14 +95,12 @@ namespace KiranaStoreUI.Controllers
 
             vm.Sale.CustomerId = createdCustomer.CustomerId;
 
-            // Step 2: Clean SaleItems
+            // 2️⃣ Clean SaleItems
             if (vm.Sale.SaleItems != null)
-            {
                 foreach (var item in vm.Sale.SaleItems)
                     item.Sale = null;
-            }
 
-            // Step 3: Create Sale
+            // 3️⃣ Create Sale
             var saleResponse = await _client.PostAsJsonAsync("Sale/AddSale", vm.Sale);
             if (saleResponse.IsSuccessStatusCode)
             {
@@ -155,39 +146,174 @@ namespace KiranaStoreUI.Controllers
                                           .ToDictionary(p => p.ProductId, p => p);
 
                 foreach (var item in sale.SaleItems)
-                {
                     if (productDict.ContainsKey(item.ProductId))
                         item.Product = productDict[item.ProductId];
-                }
             }
+
+            // Calculate date-wise total
+            var allSales = await _client.GetFromJsonAsync<List<Sale>>("Sale/GetAllSales");
+            var selectedDate = sale.SaleDate.Date;
+            decimal dateWiseTotal = allSales
+                .Where(s => s.SaleDate.Date == selectedDate)
+                .Sum(s => s.NetAmount);
+
+            ViewBag.DateWiseTotalNetAmount = dateWiseTotal;
+            ViewBag.SaleDate = selectedDate.ToString("dd-MMM-yyyy");
 
             return View(sale);
         }
 
         // ---------------- EDIT ----------------
+        [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
             AddJwtToken();
-            var data = await _client.GetFromJsonAsync<Sale>($"Sale/GetSale/{id}");
-            return View(data);
+
+            // 1️⃣ Get Sale
+            var sale = await _client.GetFromJsonAsync<Sale>($"Sale/GetSale/{id}");
+            if (sale == null) return NotFound();
+
+            // 2️⃣ Get related Customer
+            Customer customer = new Customer();
+            if (sale.CustomerId.HasValue)
+            {
+                var custResp = await _client.GetFromJsonAsync<Customer>($"Customer/GetCustomer/{sale.CustomerId.Value}");
+                if (custResp != null)
+                    customer = custResp;
+            }
+
+            // 3️⃣ Load products for SaleItems
+            var products = await _client.GetFromJsonAsync<List<Product>>("Product/GetProducts");
+            var productDict = products.ToDictionary(p => p.ProductId);
+
+            if (sale.SaleItems != null)
+            {
+                foreach (var item in sale.SaleItems)
+                {
+                    if (productDict.TryGetValue(item.ProductId, out var prod))
+                        item.Product = prod;
+                }
+            }
+            else
+            {
+                sale.SaleItems = new List<SaleItem>();
+            }
+
+            var vm = new SaleCustomerVM
+            {
+                Sale = sale,
+                Customer = customer
+            };
+
+            return View(vm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Sale model)
+        public async Task<IActionResult> Edit(SaleCustomerVM vm)
         {
             AddJwtToken();
 
-            if (model.SaleItems != null)
+            if (!ModelState.IsValid)
+                return View(vm);
+
+            // 🔁 Prevent circular references in SaleItems
+            if (vm.Sale.SaleItems != null)
             {
-                foreach (var item in model.SaleItems)
+                foreach (var item in vm.Sale.SaleItems)
                     item.Sale = null;
             }
 
-            var result = await _client.PutAsJsonAsync($"Sale/UpdateSale/{model.SaleId}", model);
-            if (result.IsSuccessStatusCode)
+            // 1️⃣ Update Customer
+            var customerResponse = await _client.PutAsJsonAsync("Customer/UpdateCustomer", vm.Customer);
+            if (!customerResponse.IsSuccessStatusCode)
+            {
+                ModelState.AddModelError("", "Failed to update customer.");
+                return View(vm);
+            }
+
+            // 2️⃣ Assign CustomerId to Sale before updating
+            vm.Sale.CustomerId = vm.Customer.CustomerId;
+
+            // 3️⃣ Optional: Recalculate NetAmount server-side
+            vm.Sale.NetAmount = vm.Sale.TotalAmount - vm.Sale.Discount;
+
+            // 4️⃣ Update Sale
+            var saleResponse = await _client.PutAsJsonAsync("Sale/UpdateSale", vm.Sale);
+            if (saleResponse.IsSuccessStatusCode)
                 return RedirectToAction("Index");
 
-            return View(model);
+            ModelState.AddModelError("", "Failed to update sale.");
+            return View(vm);
         }
+
+
+        public async Task<IActionResult> ProfitByDateRange(DateTime? startDate, DateTime? endDate)
+        {
+            AddJwtToken();
+
+            if (!startDate.HasValue || !endDate.HasValue)
+            {
+                ViewBag.TotalProfit = 0;
+                return View(new List<SaleProfitVM>());
+            }
+
+            DateTime start = startDate.Value.Date;
+            DateTime end = endDate.Value.Date;
+
+            // 1️⃣ Get all sales
+            var allSales = await _client.GetFromJsonAsync<List<Sale>>("Sale/GetAllSales");
+
+            // Filter by date range
+            var filteredSales = allSales
+                .Where(s => s.SaleDate.Date >= start && s.SaleDate.Date <= end)
+                .ToList();
+
+            // 2️⃣ Get all products
+            var products = await _client.GetFromJsonAsync<List<Product>>("Product/GetProducts");
+            var productDict = products.ToDictionary(p => p.ProductId);
+
+            // 3️⃣ Build list of SaleProfitVM
+            var profitList = new List<SaleProfitVM>();
+            decimal totalProfit = 0;
+
+            foreach (var sale in filteredSales)
+            {
+                decimal purchaseTotal = 0;
+                decimal sellingTotal = 0;
+
+                if (sale.SaleItems != null)
+                {
+                    foreach (var item in sale.SaleItems)
+                    {
+                        if (productDict.TryGetValue(item.ProductId, out var prod))
+                        {
+                            purchaseTotal += prod.PurchasePrice * item.Quantity;
+                            sellingTotal += item.Price * item.Quantity;
+                        }
+                    }
+                }
+
+                var vm = new SaleProfitVM
+                {
+                    InvoiceNumber = sale.InvoiceNumber,
+                    SaleDate = sale.SaleDate,
+                    PurchasePrice = purchaseTotal,
+                    SellingPrice = sellingTotal,
+                    TotalDiscount = sale.Discount,   // ✅ assign discount
+                    Total = sale.NetAmount
+                };
+
+                totalProfit += vm.Profit; // ✅ profit is calculated automatically
+                profitList.Add(vm);
+            }
+
+            ViewBag.TotalProfit = totalProfit;
+            ViewBag.StartDate = start.ToString("yyyy-MM-dd");
+            ViewBag.EndDate = end.ToString("yyyy-MM-dd");
+
+            return View(profitList);
+        }
+
+
     }
 }

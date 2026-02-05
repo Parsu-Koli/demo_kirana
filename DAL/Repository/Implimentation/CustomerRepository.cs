@@ -1,8 +1,7 @@
 ﻿using DAL.Data;
 using DAL.Models;
 using DAL.Repository.Interfaces;
-using System.Collections.Generic;
-using System.Linq;
+
 
 namespace DAL.Repository.Implementation
 {
@@ -44,7 +43,7 @@ namespace DAL.Repository.Implementation
 
         public IEnumerable<Customer> GetAll()
         {
-            return _context.Customers.ToList();
+            return [.. _context.Customers];
         }
     }
 }

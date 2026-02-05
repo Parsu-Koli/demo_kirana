@@ -1,6 +1,6 @@
 [
   {
-    "ContainingType": "WebApi.Controllers.AuthController",
+    "ContainingType": "KiranaStore.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/Auth/Login",
     "HttpMethod": "POST",
@@ -16,7 +16,7 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "WebApi.Controllers.AuthController",
+    "ContainingType": "KiranaStore.Controllers.AuthController",
     "Method": "Register",
     "RelativePath": "api/Auth/Register",
     "HttpMethod": "POST",
@@ -346,7 +346,7 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "p",
+        "Name": "product",
         "Type": "DAL.Models.Product",
         "IsRequired": true
       }
@@ -574,6 +574,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "KiranaStore.Controllers.SaleController",
+    "Method": "UpdateSale",
+    "RelativePath": "api/Sale/UpdateSale",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sale",
+        "Type": "DAL.Models.Sale",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "KiranaStore.Controllers.SaleItemController",
     "Method": "Add",
     "RelativePath": "api/SaleItem/Add",
@@ -611,6 +627,90 @@
         "Name": "saleId",
         "Type": "System.Int32",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApi.Controllers.StockController",
+    "Method": "DecreaseStock",
+    "RelativePath": "api/Stock/DecreaseStock",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "qty",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApi.Controllers.StockController",
+    "Method": "GetAllStock",
+    "RelativePath": "api/Stock/GetAllStock",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApi.Controllers.StockController",
+    "Method": "GetLowStock",
+    "RelativePath": "api/Stock/GetLowStock/{limit}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "limit",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApi.Controllers.StockController",
+    "Method": "GetStockByProduct",
+    "RelativePath": "api/Stock/GetStockByProduct/{productId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebApi.Controllers.StockController",
+    "Method": "IncreaseStock",
+    "RelativePath": "api/Stock/IncreaseStock",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "qty",
+        "Type": "System.Int32",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

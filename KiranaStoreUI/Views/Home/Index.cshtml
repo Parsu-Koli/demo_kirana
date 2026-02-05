@@ -1,28 +1,68 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
 <div class="container mt-5">
 
     <div class="row justify-content-center">
-        <div class="col-md-8 col-lg-6">
+        <div class="col-md-10 col-lg-8">
 
             <div class="card shadow-lg border-0 rounded-4">
-                <div class="card-body text-center p-5">
+                <div class="card-body p-5">
 
-                    <h1 class="display-5 fw-bold mb-3 text-primary">
-                        Welcome to Your ASP.NET Core App
+                    <!-- Project Title -->
+                    <h1 class="display-5 fw-bold text-center text-primary mb-3">
+                        Kirana Store Management System
                     </h1>
 
-                    <p class="lead text-secondary mb-4">
-                        Build fast, modern, and secure web applications using the powerful ASP.NET Core framework.
+                    <!-- Subtitle -->
+                    <p class="lead text-center text-secondary mb-4">
+                        A complete web-based solution to manage products, sales, stock, and billing efficiently.
                     </p>
 
-                    <a href="https://learn.microsoft.com/aspnet/core"
-                       class="btn btn-primary btn-lg px-4 py-2 rounded-3 fw-semibold"
-                       target="_blank">
-                        Explore ASP.NET Core Documentation
-                    </a>
+                    <hr class="my-4" />
+
+                    <!-- Project Info -->
+                    <div class="text-start">
+
+                        <h4 class="fw-semibold text-dark mb-3">📌 Project Overview</h4>
+
+                        <p class="text-secondary">
+                            The <strong>Kirana Store Management System</strong> is developed using
+                            <strong>ASP.NET Core MVC</strong> integrated with <strong>ASP.NET Core Web API</strong>.
+                            It helps shop owners manage daily operations such as product management,
+                            category handling, sales billing, purchase entries, and stock monitoring.
+                        </p>
+
+                        <ul class="text-secondary">
+                            <li>🔐 Secure login with role-based access (Admin/User)</li>
+                            <li>📦 Product & category management</li>
+                            <li>🧾 Sales billing and purchase tracking</li>
+                            <li>📊 Stock and sales reports</li>
+                            <li>🗄️ SQL Server with Entity Framework Core</li>
+                        </ul>
+
+                        <p class="text-secondary">
+                            This project follows a clean layered architecture (MVC, API, BLL, DAL)
+                            to ensure scalability, maintainability, and real-world usability.
+                        </p>
+
+                    </div>
+
+                    <hr class="my-4" />
+
+                    <!-- Developer Info -->
+                    <div class="text-center">
+                        <h5 class="fw-semibold mb-1">👨‍💻 Developed By</h5>
+                        <p class="mb-2 text-dark fs-5">
+                            <strong>Prashant Koli</strong>
+                        </p>
+
+                        <span class="badge bg-primary me-1">ASP.NET Core</span>
+                        <span class="badge bg-success me-1">Web API</span>
+                        <span class="badge bg-dark me-1">SQL Server</span>
+                        <span class="badge bg-info text-dark">Bootstrap</span>
+                    </div>
 
                 </div>
             </div>

@@ -1,6 +1,6 @@
 ﻿using DAL.Models;
 
-namespace DAL.Repository.Interfaces
+namespace DAL.Repository.Interface
 {
     public interface IProductRepository
     {
@@ -13,5 +13,9 @@ namespace DAL.Repository.Interfaces
         void Delete(int id);
 
         bool IsProductNameExists(string name);
+
+        void DecreaseProductStock(int productId, int qty);
+        void IncreaseProductStock(int productId, int qty);
+
     }
 }

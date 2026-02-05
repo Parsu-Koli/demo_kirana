@@ -6,14 +6,9 @@ using System.Net.Http.Json;
 namespace KiranaStoreUI.Controllers
 {
    
-    public class CategoryController : Controller
+    public class CategoryController(IHttpClientFactory httpClientFactory) : Controller
     {
-        private readonly HttpClient _client;
-
-        public CategoryController(IHttpClientFactory httpClientFactory)
-        {
-            _client = httpClientFactory.CreateClient("api");
-        }
+        private readonly HttpClient _client = httpClientFactory.CreateClient("api");
 
         private void AddJwtToken()
         {

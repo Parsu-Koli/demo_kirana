@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 namespace KiranaStoreUI.Controllers
 {
@@ -15,7 +17,6 @@ namespace KiranaStoreUI.Controllers
             _factory = factory;
         }
 
-        // Helper to create HttpClient with JWT
         private HttpClient CreateClientWithToken()
         {
             var client = _factory.CreateClient("api");
@@ -26,15 +27,13 @@ namespace KiranaStoreUI.Controllers
             return client;
         }
 
-        // GET: Login Page
         public IActionResult Login()
         {
             return View();
         }
 
-        // POST: Login
         [HttpPost]
-        public async Task<IActionResult> Login(User model)
+        public async Task<IActionResult> Login(LoginModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
@@ -58,25 +57,33 @@ namespace KiranaStoreUI.Controllers
                 var role = doc.RootElement.GetProperty("role").GetString();
                 var username = doc.RootElement.GetProperty("username").GetString();
 
-                // ✅ Save JWT and user info in Session
                 HttpContext.Session.SetString("JWToken", token);
                 HttpContext.Session.SetString("Username", username);
                 HttpContext.Session.SetString("Role", role);
 
-                return RedirectToAction("Index", "Home");
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, username),
+                    new Claim(ClaimTypes.Role, role)
+                };
+
+                var identity = new ClaimsIdentity(claims, "Cookies");
+                var principal = new ClaimsPrincipal(identity);
+
+                await HttpContext.SignInAsync("Cookies", principal);
+
+                return RedirectToAction("Create", "sale");
             }
 
             ModelState.AddModelError("", "Invalid username or password");
             return View(model);
         }
 
-        // GET: Register Page
         public IActionResult Register()
         {
             return View();
         }
 
-        // POST: Register
         [HttpPost]
         public async Task<IActionResult> Register(User model)
         {
@@ -112,7 +119,6 @@ namespace KiranaStoreUI.Controllers
             return View(model);
         }
 
-        // AJAX: Check if username exists
         [HttpGet]
         public async Task<JsonResult> IsUsernameExists(string username)
         {
@@ -121,12 +127,11 @@ namespace KiranaStoreUI.Controllers
             return Json(exists);
         }
 
-        // Optional: Logout
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
             HttpContext.Session.Clear();
+            await HttpContext.SignOutAsync("Cookies");
             return RedirectToAction("Login");
         }
     }
 }
-

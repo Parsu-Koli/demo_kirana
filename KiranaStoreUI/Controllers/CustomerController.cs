@@ -4,14 +4,9 @@ using System.Net.Http.Json;
 
 namespace KiaranaStroreUI.Controllers
 {
-    public class CustomerController : Controller
+    public class CustomerController(IHttpClientFactory factory) : Controller
     {
-        private readonly HttpClient _client;
-
-        public CustomerController(IHttpClientFactory factory)
-        {
-            _client = factory.CreateClient("api");
-        }
+        private readonly HttpClient _client = factory.CreateClient("api");
 
         // GET: Customer
         public async Task<IActionResult> Index()

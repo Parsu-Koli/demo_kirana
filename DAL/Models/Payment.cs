@@ -11,7 +11,7 @@ namespace DAL.Models
         public int PaymentId { get; set; }
         public int SaleId { get; set; }
         public decimal AmountPaid { get; set; }
-        public string Mode { get; set; }         // UPI, Cash, Card
+        public string Mode { get; set; }         
         public DateTime PaymentDate { get; set; }
     }
 

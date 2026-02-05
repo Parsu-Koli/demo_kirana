@@ -1,8 +1,7 @@
 ﻿using DAL.Data;
 using DAL.Models;
 using DAL.Repository.Interfaces;
-using System.Collections.Generic;
-using System.Linq;
+
 
 namespace DAL.Repository.Implementation
 {
@@ -10,10 +9,7 @@ namespace DAL.Repository.Implementation
     {
         private readonly AppDbContext _context;
 
-        public CategoryRepository(AppDbContext context)
-        {
-            _context = context;
-        }
+        public CategoryRepository(AppDbContext context) => _context = context;
 
         public void Add(Category category)
         {
@@ -44,7 +40,7 @@ namespace DAL.Repository.Implementation
 
         public IEnumerable<Category> GetAll()
         {
-            return _context.Categories.ToList();
+            return [.. _context.Categories];
         }
 
         public bool IsCategoryNameExists(string name)

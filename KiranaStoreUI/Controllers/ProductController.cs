@@ -27,12 +27,14 @@ namespace KiranaStoreUI.Controllers
         }
 
         // LIST
+        [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
         public async Task<IActionResult> Index()
         {
             var client = CreateClientWithToken();
             var data = await client.GetFromJsonAsync<List<Product>>("Product/GetProducts");
             return View(data);
         }
+
 
         // DETAILS
         public async Task<IActionResult> Details(int id)
@@ -45,7 +47,7 @@ namespace KiranaStoreUI.Controllers
 
         // CREATE (GET)
         public async Task<IActionResult> Create()
-        {
+         {
             await LoadCategories();
             return View();
         }

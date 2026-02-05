@@ -1,6 +1,6 @@
 ﻿using DAL.Data;
 using DAL.Models;
-using DAL.Repository.Interfaces;
+using DAL.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,7 +51,7 @@ namespace DAL.Repository.Implementation
             return product;
         }
 
-       
+
         public IEnumerable<Product> GetAll()
         {
             var list = _context.Products
@@ -66,7 +66,7 @@ namespace DAL.Repository.Implementation
             return list;
         }
 
-        
+
         public IEnumerable<Product> GetByCategory(int categoryId)
         {
             var list = _context.Products
@@ -86,5 +86,33 @@ namespace DAL.Repository.Implementation
         {
             return _context.Products.Any(x => x.ProductName == name);
         }
+
+        public void DecreaseProductStock(int productId, int qty)
+        {
+            var product = _context.Products.Find(productId);
+
+            if (product == null)
+                throw new Exception("Product not found.");
+
+            if (product.QuantityInStock < qty)
+                throw new Exception("Insufficient product stock.");
+
+            product.QuantityInStock -= qty;
+            _context.SaveChanges();
+        }
+
+        public void IncreaseProductStock(int productId, int qty)
+        {
+            var product = _context.Products.Find(productId);
+
+            if (product == null)
+                throw new Exception("Product not found.");
+
+            product.QuantityInStock += qty;
+            _context.SaveChanges();
+        }
+
+
+
     }
 }

@@ -1,13 +1,13 @@
 ﻿using DAL.Models;
+using DAL.Repository.Interface;
 using DAL.Repository.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace BLL.Services
 {
     public class SaleService
     {
         private readonly ISaleRepository _saleRepo;
-        private readonly IProductRepository _productRepo; 
+        private readonly IProductRepository _productRepo;
 
         public SaleService(ISaleRepository saleRepo, IProductRepository productRepo)
         {
@@ -15,7 +15,6 @@ namespace BLL.Services
             _productRepo = productRepo;
         }
 
-        
         public void AddSale(Sale sale)
         {
             if (sale.CustomerId <= 0)
@@ -27,36 +26,48 @@ namespace BLL.Services
             sale.SaleDate = DateTime.Now;
             sale.InvoiceNumber = GenerateInvoiceNumber();
 
+            foreach (var item in sale.SaleItems)
+            {
+                var product = _productRepo.GetById(item.ProductId);
+                if (product == null)
+                    throw new Exception("Product not found.");
+
+                if (product.QuantityInStock < item.Quantity)
+                    throw new Exception("Insufficient stock.");
+
+                product.QuantityInStock -= item.Quantity;
+                _productRepo.Update(product);
+
+                item.Sale = null;
+            }
+
             _saleRepo.Add(sale);
         }
 
-        // ---------------- GET ALL SALES (with items + products) ----------------
         public IEnumerable<Sale> GetAllSales()
         {
             var sales = _saleRepo.GetAll().ToList();
 
             foreach (var sale in sales)
             {
-                _saleRepo.LoadSaleItems(sale);       // load sale items
-                LoadProductsForSaleItems(sale);      // load product info
+                _saleRepo.LoadSaleItems(sale);
+                LoadProductsForSaleItems(sale);
             }
 
             return sales;
         }
 
-        // ---------------- GET SINGLE SALE (with items + products) ----------------
         public Sale GetSale(int saleId)
         {
             var sale = _saleRepo.GetById(saleId);
             if (sale == null) return null;
 
-            _saleRepo.LoadSaleItems(sale);           // load sale items
-            LoadProductsForSaleItems(sale);          // load product info
+            _saleRepo.LoadSaleItems(sale);
+            LoadProductsForSaleItems(sale);
 
             return sale;
         }
 
-        // ---------------- HELPER: Load products for each SaleItem ----------------
         private void LoadProductsForSaleItems(Sale sale)
         {
             if (sale.SaleItems == null || sale.SaleItems.Count == 0) return;
@@ -73,7 +84,6 @@ namespace BLL.Services
             }
         }
 
-        // ---------------- INVOICE NUMBER ----------------
         public string GetNextInvoiceNumber()
         {
             return GenerateInvoiceNumber();
@@ -94,6 +104,14 @@ namespace BLL.Services
 
             return "INV" + newNumber.ToString("000000");
         }
+
+        public void UpdateSale(Sale sale)
+        {
+            if(sale.SaleId<=0)
+                throw new Exception("Invalid category ID.");
+
+            _saleRepo.UpdateSale(sale);
+            
+        }
     }
 }
-

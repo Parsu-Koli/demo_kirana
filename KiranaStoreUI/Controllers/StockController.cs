@@ -1,31 +1,49 @@
-﻿
-using KiranaStoreUI.Models;
+﻿using KiranaStoreUI.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
 namespace KiaranaStroreUI.Controllers
 {
     public class StockController : Controller
     {
-        private readonly HttpClient _client;
+        private readonly IHttpClientFactory _factory;
 
         public StockController(IHttpClientFactory factory)
         {
-            _client = factory.CreateClient("api");
+            _factory = factory;
         }
 
+        // ✅ Helper: Create HttpClient with JWT
+        private HttpClient CreateClientWithToken()
+        {
+            var client = _factory.CreateClient("api");
+            var token = HttpContext.Session.GetString("JWToken");
+            if (!string.IsNullOrEmpty(token))
+            {
+                client.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", token);
+            }
+            return client;
+        }
+
+        // LIST
         public async Task<IActionResult> Index()
         {
-            var data = await _client.GetFromJsonAsync<List<Stock>>("Stock");
+            var client = CreateClientWithToken();
+            var data = await client.GetFromJsonAsync<List<Stock>>("Stock/GetAllStock");
             return View(data);
         }
 
+        // CREATE (GET)
         public IActionResult Create() => View();
 
+        // CREATE (POST)
         [HttpPost]
         public async Task<IActionResult> Create(Stock model)
         {
-            var result = await _client.PostAsJsonAsync("Stock", model);
+            var client = CreateClientWithToken();
+            var result = await client.PostAsJsonAsync("Stock/IncreaseStock?productId=" + model.ProductId + "&qty=" + model.Quantity, model);
 
             if (result.IsSuccessStatusCode)
                 return RedirectToAction("Index");
@@ -33,16 +51,28 @@ namespace KiaranaStroreUI.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Edit(int id)
+        // CHART
+        public async Task<IActionResult> Chart()
         {
-            var data = await _client.GetFromJsonAsync<Stock>($"Stock/{id}");
+            var client = CreateClientWithToken();
+            var data = await client.GetFromJsonAsync<List<Stock>>("Stock/GetAllStock");
             return View(data);
         }
 
+        // EDIT (GET)
+        public async Task<IActionResult> Edit(int id)
+        {
+            var client = CreateClientWithToken();
+            var data = await client.GetFromJsonAsync<Stock>($"Stock/GetStockByProduct/{id}");
+            return View(data);
+        }
+
+        // EDIT (POST)
         [HttpPost]
         public async Task<IActionResult> Edit(Stock model)
         {
-            var result = await _client.PutAsJsonAsync($"Stock/{model.StockId}", model);
+            var client = CreateClientWithToken();
+            var result = await client.PostAsJsonAsync("Stock/IncreaseStock?productId=" + model.ProductId + "&qty=" + model.Quantity, model);
 
             if (result.IsSuccessStatusCode)
                 return RedirectToAction("Index");
@@ -50,16 +80,20 @@ namespace KiaranaStroreUI.Controllers
             return View(model);
         }
 
+        // DELETE (GET)
         public async Task<IActionResult> Delete(int id)
         {
-            var data = await _client.GetFromJsonAsync<Stock>($"Stock/{id}");
+            var client = CreateClientWithToken();
+            var data = await client.GetFromJsonAsync<Stock>($"Stock/GetStockByProduct/{id}");
             return View(data);
         }
 
+        // DELETE CONFIRMED
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            await _client.DeleteAsync($"Stock/{id}");
+            var client = CreateClientWithToken();
+            await client.PostAsync($"Stock/DecreaseStock?productId={id}&qty=0", null);
             return RedirectToAction("Index");
         }
     }

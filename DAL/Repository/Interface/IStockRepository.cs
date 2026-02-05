@@ -1,4 +1,5 @@
 ﻿using DAL.Models;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace DAL.Repository.Interfaces
 {
@@ -16,5 +17,7 @@ namespace DAL.Repository.Interfaces
         void IncreaseStock(int productId, int qty);
         void DecreaseStock(int productId, int qty);
         Stock GetByProductId(int productId);
+        IDbContextTransaction BeginTransaction();
+
     }
 }

@@ -10,7 +10,7 @@ namespace DAL.Models
     {
         public int Id { get; set; }
         public int ProductId { get; set; }
-        public string TransactionType { get; set; }  // Purchase / Sale
+        public required string TransactionType { get; set; }  
         public int Quantity { get; set; }
         public DateTime Date { get; set; }
     }

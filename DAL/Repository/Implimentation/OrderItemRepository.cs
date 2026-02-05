@@ -4,7 +4,7 @@ using DAL.Repository.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DAL.Repository.Implementation
+namespace DAL.Repository.Implimentation
 {
     public class OrderItemRepository : IOrderItemRepository
     {
@@ -23,12 +23,12 @@ namespace DAL.Repository.Implementation
 
         public IEnumerable<OrderItem> GetAll()
         {
-            return _context.OrderItems.ToList();
+            return [.. _context.OrderItems];
         }
 
         public IEnumerable<OrderItem> GetItemsByOrder(int orderId)
         {
-            return _context.OrderItems.Where(x => x.OrderId == orderId).ToList();
+            return [.. _context.OrderItems.Where(x => x.OrderId == orderId)];
         }
     }
 }

@@ -3,7 +3,7 @@ using DAL.Models;
 using DAL.Repository.Interfaces;
 using System.Linq;
 
-namespace DAL.Repository.Implementation
+namespace DAL.Repository.Implimentation
 {
     public class AuthRepository : IAuthRepository
     {
@@ -28,6 +28,7 @@ namespace DAL.Repository.Implementation
         {
             _context.Users.Add(user);
             _context.SaveChanges();
+            Console.WriteLine( user.UserId);
         }
     }
 }

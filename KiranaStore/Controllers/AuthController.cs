@@ -1,82 +1,4 @@
-﻿//using BLL.DTOs;
-//using BLL.Services;
-//using DAL.Models;
-//using Microsoft.AspNetCore.Mvc;
-
-//namespace WebApi.Controllers
-//{
-//    [Route("api/[controller]")]
-//    [ApiController]
-//    public class AuthController : ControllerBase
-//    {
-//        private readonly AuthService _authService;
-
-//        public AuthController(AuthService authService)
-//        {
-//            _authService = authService;
-//        }
-
-//        // ================= LOGIN =================
-//        [HttpPost("Login")]
-//        public IActionResult Login([FromBody] LoginDto dto)
-//        {
-//            if (dto == null)
-//                return BadRequest("Invalid login data.");
-
-//            var result = _authService.Login(dto.Username, dto.Password);
-
-//            if (result == null)
-//                return BadRequest("Invalid username or password");
-
-//            return Ok(result);
-//        }
-
-//        // ================= REGISTER =================
-//        [HttpPost("Register")]
-//        public IActionResult Register([FromBody] RegisterDto dto)
-//        {
-//            if (dto == null)
-//                return BadRequest("Invalid registration data.");
-
-//            // Create User entity
-//            var user = new User
-//            {
-//                FullName = dto.FullName,
-//                Username = dto.Username,
-//                Password = dto.Password, // Later we will HASH this
-//                Phone = dto.Phone,
-//                Role = dto.Role,
-//                IsActive = true,
-//                CreatedDate = DateTime.Now
-//            };
-
-//            try
-//            {
-//                var result = _authService.Register(user);
-//                return Ok(result);
-//            }
-//            catch (Exception ex)
-//            {
-//                return BadRequest(ex.Message);
-//            }
-//        }
-
-//        // ============== CHECK USERNAME EXISTS ================
-//        [HttpGet("IsUsernameExists/{username}")]
-//        public IActionResult IsUsernameExists(string username)
-//        {
-//            if (string.IsNullOrWhiteSpace(username))
-//                return BadRequest("Username is required.");
-
-//            bool exists = _authService.IsUsernameExists(username);
-
-//            return Ok(exists);
-//        }
-//    }
-//}
-
-
-using BLL.DTOs;
+﻿using BLL.DTOs;
 using BLL.Services;
 using DAL.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -86,7 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace WebApi.Controllers
+namespace KiranaStore.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]
@@ -102,7 +24,7 @@ namespace WebApi.Controllers
             _configuration = configuration;
         }
 
-        // ================= LOGIN =================
+        
         [AllowAnonymous]
         [HttpPost("Login")]
         public IActionResult Login([FromBody] LoginDto dto)
@@ -126,13 +48,13 @@ namespace WebApi.Controllers
             }
             catch (Exception ex)
             {
-                // Service throws exception → handle here
+                
                 return Unauthorized(ex.Message);
             }
         }
 
 
-        // ================= REGISTER =================
+        
         [AllowAnonymous]
         [HttpPost("Register")]
         public IActionResult Register([FromBody] RegisterDto dto)

@@ -1,28 +1,42 @@
 ﻿using KiranaStoreUI.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 
 namespace KiaranaStroreUI.Controllers
 {
     public class OrderItemController : Controller
     {
-        private readonly HttpClient _client;
+        private readonly IHttpClientFactory _factory;
 
         public OrderItemController(IHttpClientFactory factory)
         {
-            _client = factory.CreateClient("api");
+            _factory = factory;
         }
 
-        // Show Items of an Order
+        private HttpClient CreateClientWithToken()
+        {
+            var client = _factory.CreateClient("api");
+            var token = HttpContext.Session.GetString("JWToken");
+
+            if (!string.IsNullOrEmpty(token))
+                client.DefaultRequestHeaders.Authorization =
+                    new AuthenticationHeaderValue("Bearer", token);
+
+            return client;
+        }
+
         public async Task<IActionResult> Index()
         {
-            var orders = await _client.GetFromJsonAsync<List<OrderItem>>("OrderItem/GetOrderItems");
+            var client = CreateClientWithToken();
+            var orders = await client.GetFromJsonAsync<List<OrderItem>>("OrderItem/GetOrderItems");
             return View(orders);
         }
 
         public async Task<IActionResult> GetById(int orderId)
         {
-            var data = await _client.GetFromJsonAsync<List<OrderItem>>($"OrderItem/Get/{orderId}");
+            var client = CreateClientWithToken();
+            var data = await client.GetFromJsonAsync<List<OrderItem>>($"OrderItem/Get/{orderId}");
             ViewBag.OrderId = orderId;
             return View(data);
         }
@@ -36,12 +50,17 @@ namespace KiaranaStroreUI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(OrderItem model)
         {
-            var response = await _client.PostAsJsonAsync("OrderItem/Add", model);
+            var client = CreateClientWithToken();
 
-            if (response.IsSuccessStatusCode)
-                return RedirectToAction("Index", new { orderId = model.OrderId });
+            var response = await client.PostAsJsonAsync("OrderItem/Add", model);
 
-            return View(model);
+            if (!response.IsSuccessStatusCode)
+            {
+                ModelState.AddModelError("", "Stock insufficient or sale failed");
+                return View(model);
+            }
+
+            return RedirectToAction("Index", "Product");
         }
     }
 }

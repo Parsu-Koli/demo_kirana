@@ -48,6 +48,39 @@
         </div>
         <!-- END SEARCH BAR -->
 
+        <div class="card mt-4 shadow-sm border-0">
+            <div class="card-body bg-light rounded-3">
+
+                <div class="d-flex align-items-center justify-content-between flex-wrap">
+
+                    <!-- LEFT: TITLE + DATE -->
+                    <div class="mb-2">
+                        <h5 class="fw-bold text-success mb-1">
+                            📅 Date Wise Sale Summary
+                        </h5>
+
+                        <small class="text-muted">
+                            Selected Date:
+                            <span id="selectedDateText" class="fw-semibold text-dark">—</span>
+                        </small>
+                    </div>
+
+                    <!-- RIGHT: TOTAL AMOUNT -->
+                    <div class="text-end">
+                        <div class="text-muted small">Total Net Sale</div>
+                        <div class="fs-4 fw-bold text-success">
+                            ₹ <span id="dateWiseTotal">0.00</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
         <div class="card-body p-0">
 
             <table class="table table-hover table-bordered mb-0">
@@ -124,44 +157,93 @@
 
 </div>
 
+<style>
+    .card-body.bg-light {
+        background: linear-gradient(135deg, #f8fdf9, #eefaf1);
+    }
+</style>
 
-<!-- 🌟 FILTER SCRIPT -->
+
 <script>
     const searchBox = document.getElementById("searchBox");
     const paymentFilter = document.getElementById("paymentFilter");
     const dateFilter = document.getElementById("dateFilter");
 
-    function filterTable() {
-        let search = searchBox.value.toLowerCase();
-        let payment = paymentFilter.value.toLowerCase();
-        let date = dateFilter.value;
+    const totalSpan = document.getElementById("dateWiseTotal");
+    const selectedDateText = document.getElementById("selectedDateText");
 
-        let rows = document.querySelectorAll("table tbody tr");
+    // Parse "04-Feb-2026"
+    function parseCustomDate(text) {
+        if (!text) return null;
 
-        rows.forEach(row => {
-            let invoice = row.children[0].innerText.toLowerCase();
-            let customer = row.children[1].innerText.toLowerCase();
-            let paymentMode = row.children[5].innerText.toLowerCase();
-            let saleDate = row.children[6].innerText;
+        const parts = text.split("-");
+        if (parts.length !== 3) return null;
 
-            // Convert dd-MMM-yyyy to yyyy-MM-dd
-            let formattedDate = new Date(saleDate).toISOString().split('T')[0];
+        const day = parseInt(parts[0], 10);
+        const year = parseInt(parts[2], 10);
 
-            let match =
-                (invoice.includes(search) ||
-                 customer.includes(search) ||
-                 paymentMode.includes(search) ||
-                 saleDate.toLowerCase().includes(search)) &&
+        const months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        const month = months.indexOf(parts[1]);
 
-                (payment === "" || paymentMode.includes(payment)) &&
+        if (month === -1) return null;
 
-                (date === "" || formattedDate === date);
-
-            row.style.display = match ? "" : "none";
-        });
+        return new Date(year, month, day);
     }
 
-    searchBox.addEventListener("keyup", filterTable);
-    paymentFilter.addEventListener("change", filterTable);
-    dateFilter.addEventListener("change", filterTable);
+    function filterTable() {
+        const search = (searchBox?.value || "").toLowerCase();
+        const payment = (paymentFilter?.value || "").toLowerCase();
+        const selectedDate = dateFilter?.value || "";
+
+        const rows = document.querySelectorAll("table tbody tr");
+        let totalNetAmount = 0;
+
+        rows.forEach(row => {
+            if (row.children.length < 7) return;
+
+            const invoice = row.children[0].innerText.toLowerCase();
+            const customer = row.children[1].innerText.toLowerCase();
+            const netAmount = parseFloat(
+                row.children[4].innerText.replace("₹", "").trim()
+            ) || 0;
+            const paymentMode = row.children[5].innerText.toLowerCase();
+            const saleDateText = row.children[6].innerText;
+
+            const saleDate = parseCustomDate(saleDateText);
+            let formattedDate = "";
+
+            if (saleDate) {
+                formattedDate =
+                    saleDate.getFullYear() + "-" +
+                    String(saleDate.getMonth() + 1).padStart(2, "0") + "-" +
+                    String(saleDate.getDate()).padStart(2, "0");
+            }
+
+            const match =
+                (invoice.includes(search) ||
+                 customer.includes(search) ||
+                 paymentMode.includes(search)) &&
+                (payment === "" || paymentMode.includes(payment)) &&
+                (selectedDate === "" || formattedDate === selectedDate);
+
+            row.style.display = match ? "" : "none";
+
+            // ✅ CALCULATE TOTAL FOR ALL MATCHED ROWS
+            if (match) {
+                // If date selected → sum only that date
+                if (!selectedDate || formattedDate === selectedDate) {
+                    totalNetAmount += netAmount;
+                }
+            }
+        });
+
+        // Update UI
+        if (totalSpan) totalSpan.innerText = totalNetAmount.toFixed(2);
+        if (selectedDateText)
+            selectedDateText.innerText = selectedDate || "Filtered Results";
+    }
+
+    if (searchBox) searchBox.addEventListener("keyup", filterTable);
+    if (paymentFilter) paymentFilter.addEventListener("change", filterTable);
+    if (dateFilter) dateFilter.addEventListener("change", filterTable);
 </script>

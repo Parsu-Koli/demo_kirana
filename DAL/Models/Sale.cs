@@ -19,7 +19,7 @@ namespace DAL.Models
         public DateTime SaleDate { get; set; }
 
 
-        public List<SaleItem> SaleItems { get; set; }
+        public required List<SaleItem> SaleItems { get; set; }
     }
 
 }

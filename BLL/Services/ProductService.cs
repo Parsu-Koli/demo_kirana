@@ -1,5 +1,5 @@
-﻿
-using DAL.Models;
+﻿using DAL.Models;
+using DAL.Repository.Interface;
 using DAL.Repository.Interfaces;
 
 namespace BLL.Services
@@ -8,11 +8,13 @@ namespace BLL.Services
     {
         private readonly IProductRepository _prodRepo;
         private readonly ICategoryRepository _catRepo;
+        private readonly IStockRepository _stockRepo;
 
-        public ProductService(IProductRepository prodRepo, ICategoryRepository catRepo)
+        public ProductService(IProductRepository prodRepo, ICategoryRepository catRepo, IStockRepository stockRepo)
         {
             _prodRepo = prodRepo;
             _catRepo = catRepo;
+            _stockRepo = stockRepo;
         }
 
         public void AddProduct(Product product)
@@ -33,6 +35,14 @@ namespace BLL.Services
             product.Category = category;
 
             _prodRepo.Add(product);
+
+            var stock = new Stock
+            {
+                ProductId = product.ProductId,
+                Quantity = product.QuantityInStock
+            };
+
+            _stockRepo.Add(stock);
         }
 
         public void UpdateProduct(Product product)
@@ -69,7 +79,6 @@ namespace BLL.Services
             return _prodRepo.GetByCategory(categoryId);
         }
 
-       
         public IEnumerable<Product> SearchProducts(string keyword)
         {
             return _prodRepo.GetAll()

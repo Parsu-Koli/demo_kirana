@@ -21,7 +21,7 @@ namespace KiranaStore.Controllers
             _productService = productService;
         }
 
-        // ---------------- SEARCH PRODUCTS ----------------
+        
         [HttpGet("SearchProducts")]
         public IActionResult SearchProducts(string keyword)
         {
@@ -32,18 +32,18 @@ namespace KiranaStore.Controllers
             return Ok(products);
         }
 
-        // ---------------- ADD SALE ----------------
+        
         [HttpPost("AddSale")]
         public IActionResult AddSale(Sale sale)
         {
             try
             {
-                // Null navigation properties to avoid EF Core issues
+                
                 if (sale.SaleItems != null)
                 {
                     foreach (var item in sale.SaleItems)
                     {
-                        item.Sale = null; // EF will link via SaleId
+                        item.Sale = null; 
                     }
                 }
 
@@ -56,7 +56,7 @@ namespace KiranaStore.Controllers
             }
         }
 
-        // ---------------- GET SALE BY ID (With Items + Product) ----------------
+        
         [HttpGet("GetSale/{id}")]
         public IActionResult GetSale(int id)
         {
@@ -65,7 +65,7 @@ namespace KiranaStore.Controllers
             if (sale == null)
                 return NotFound("Sale not found");
 
-            // Optional: populate product names for each SaleItem
+           
             if (sale.SaleItems != null)
             {
                 foreach (var item in sale.SaleItems)
@@ -80,13 +80,13 @@ namespace KiranaStore.Controllers
             return Ok(sale);
         }
 
-        // ---------------- GET ALL SALES (With Items) ----------------
+       
         [HttpGet("GetAllSales")]
         public IActionResult GetAllSales()
         {
             var sales = _saleService.GetAllSales();
 
-            // Optional: populate product names for each SaleItem
+            
             foreach (var sale in sales)
             {
                 if (sale.SaleItems != null)
@@ -104,7 +104,15 @@ namespace KiranaStore.Controllers
             return Ok(sales);
         }
 
-        // ---------------- GET NEXT INVOICE ----------------
+        [HttpPut("UpdateSale")]
+        public IActionResult UpdateSale([FromBody] Sale sale)
+        {
+            _saleService.UpdateSale(sale);
+            return Ok(sale);
+        }
+
+
+
         [HttpGet("GetNextInvoice")]
         public string GetNextInvoice()
         {

@@ -18,20 +18,17 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("AddProduct")]
-        public IActionResult AddProduct(Product p)
+        public IActionResult AddProduct(Product product)
         {
-            try
-            {
-                _productService.AddProduct(p);
-                return Ok("Product Added Successfully");
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            if (product.QuantityInStock < 0)
+                return BadRequest("Invalid quantity");
+
+            _productService.AddProduct(product);
+            return Ok("Product added successfully");
         }
 
-        
+
+
         [HttpGet("GetProducts")]
         public IActionResult GetProducts()
         {
@@ -89,5 +86,7 @@ namespace WebApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
     }
 }

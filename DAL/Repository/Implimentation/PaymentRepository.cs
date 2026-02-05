@@ -28,12 +28,12 @@ namespace DAL.Repository.Implementation
 
         public IEnumerable<Payment> GetAll()
         {
-            return _context.Payments.ToList();
+            return [.. _context.Payments];
         }
 
         public IEnumerable<Payment> GetPaymentsBySale(int saleId)
         {
-            return _context.Payments.Where(x => x.SaleId == saleId).ToList();
+            return [.. _context.Payments.Where(x => x.SaleId == saleId)];
         }
     }
 }

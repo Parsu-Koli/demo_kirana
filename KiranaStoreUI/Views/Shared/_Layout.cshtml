@@ -53,6 +53,11 @@
     </style>
 
 </head>
+@{
+    var username = Context.Session.GetString("Username");
+    var role = Context.Session.GetString("Role");
+    var isLoggedIn = !string.IsNullOrEmpty(username);
+}
 <body>
 
 <header>
@@ -77,35 +82,56 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
+                    @if (isLoggedIn)
+                    {
 
-                <ul class="navbar-nav me-auto">
+                        <ul class="navbar-nav me-auto">
+                            
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Sale" asp-action="Create">
+                                    <i class="bi bi-cash"></i> Billing Sale
+                                </a>
+                            </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Product" asp-action="Index">
-                            <i class="bi bi-house-fill"></i> Home
-                        </a>
-                    </li>
+                            
 
-                   
 
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Sale" asp-action="Create">
-                            <i class="bi bi-cash"></i> Billing Sale
-                        </a>
-                    </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Sale" asp-action="Index">
-                            <i class="bi bi-clock-history"></i> History
-                        </a>
-                    </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Sale" asp-action="Index">
+                                    <i class="bi bi-clock-history"></i> History
+                                </a>
+                            </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Category" asp-action="Index">
-                            <i class="bi bi-tag"></i> Category
-                        </a>
-                    </li>
-                </ul>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Category" asp-action="Index">
+                                    <i class="bi bi-tag"></i> Category
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Stock" asp-action="Chart">
+                                    <i class="bi bi-bar-chart"></i> Stock Chart
+                                </a>
+                            </li>
+
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Product" asp-action="Index">
+                                    <i class="bi bi-cart-fill"></i>Products
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Sale" asp-action="ProfitByDateRange">
+                                    <i class="bi bi-graph-up"></i> Profit By Date
+                                </a>
+                            </li>
+
+                        </ul>
+                    }
+
+
 
                 <ul class="navbar-nav ms-auto">
                     @if (User.Identity.IsAuthenticated)
@@ -121,6 +147,12 @@
                                 <i class="bi bi-box-arrow-right"></i> Logout
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="User" asp-action="Register">
+                                <i class="bi bi-person-plus-fill"></i> Register
+                            </a>
+                        </li>
                     }
                     else
                     {
@@ -130,12 +162,9 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="User" asp-action="Register">
-                                <i class="bi bi-person-plus-fill"></i> Register
-                            </a>
-                        </li>
+                        
                     }
+                    
                 </ul>
 
             </div>
@@ -147,11 +176,27 @@
     @RenderBody()
 </div>
 
-<footer class="text-center border-top">
-    <div class="container">
-        © 2025 - KiranaStoreUI | Powered by ASP.NET Core MVC
+<footer class="bg-success text-light py-3 border-top mt-5">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <div class="mb-2 mb-md-0">
+            © 2025 KiranaStoreUI
+        </div>
+        <div>
+            <span class="me-2">Powered by</span>
+            <a href="#" class="text-decoration-none text-warning fw-bold">ASP.NET Core MVC</a>
+        </div>
+        <div>
+           Developed By <span class="fw-semibold text-info">Prashant Koli</span>
+        </div>
     </div>
 </footer>
+
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 @await RenderSectionAsync("Scripts", required: false)

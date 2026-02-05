@@ -141,6 +141,14 @@ C:\Users\user\Documents\progarms\Documents\JVIT\Internship\KiranaStore\obj\Debug
 C:\Users\user\Documents\progarms\Documents\JVIT\Internship\KiranaStore\obj\Debug\net8.0\KiranaStore.pdb
 C:\Users\user\Documents\progarms\Documents\JVIT\Internship\KiranaStore\obj\Debug\net8.0\KiranaStore.genruntimeconfig.cache
 C:\Users\user\Documents\progarms\Documents\JVIT\Internship\KiranaStore\obj\Debug\net8.0\ref\KiranaStore.dll
+C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\KiranaStore.csproj.AssemblyReference.cache
+C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\KiranaStore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\KiranaStore.AssemblyInfoInputs.cache
+C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\KiranaStore.AssemblyInfo.cs
+C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\KiranaStore.csproj.CoreCompileInputs.cache
+C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\KiranaStore.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\KiranaStore.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\bin\Debug\net8.0\appsettings.json
 C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\bin\Debug\net8.0\KiranaStore.staticwebassets.endpoints.json
@@ -152,6 +160,7 @@ C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaSt
 C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\bin\Debug\net8.0\Azure.Identity.dll
 C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\bin\Debug\net8.0\Humanizer.dll
+C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
 C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
@@ -261,14 +270,6 @@ C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaSt
 C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\bin\Debug\net8.0\DAL.dll
 C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\bin\Debug\net8.0\BLL.pdb
 C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\bin\Debug\net8.0\DAL.pdb
-C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\KiranaStore.csproj.AssemblyReference.cache
-C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\rpswa.dswa.cache.json
-C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\KiranaStore.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\KiranaStore.AssemblyInfoInputs.cache
-C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\KiranaStore.AssemblyInfo.cs
-C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\KiranaStore.csproj.CoreCompileInputs.cache
-C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\KiranaStore.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\KiranaStore.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\rjimswa.dswa.cache.json
 C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
@@ -284,4 +285,3 @@ C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaSt
 C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\KiranaStore.pdb
 C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\KiranaStore.genruntimeconfig.cache
 C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\obj\Debug\net8.0\ref\KiranaStore.dll
-C:\Users\user\Documents\progarms\Documents\JVIT\Internship\Kirana Store\KiranaStore\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

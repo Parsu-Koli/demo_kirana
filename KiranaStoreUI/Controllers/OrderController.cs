@@ -4,14 +4,9 @@ using System.Net.Http.Json;
 
 namespace KiaranaStroreUI.Controllers
 {
-    public class OrderController : Controller
+    public class OrderController(IHttpClientFactory factory) : Controller
     {
-        private readonly HttpClient _client;
-
-        public OrderController(IHttpClientFactory factory)
-        {
-            _client = factory.CreateClient("api");
-        }
+        private readonly HttpClient _client = factory.CreateClient("api");
 
         // GET: Order
         public async Task<IActionResult> Index()
@@ -80,7 +75,7 @@ namespace KiaranaStroreUI.Controllers
 
         // POST: Order/Delete
         [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
             // Your API does NOT have Delete endpoint → Add it OR disable delete.
             return RedirectToAction("Index");
