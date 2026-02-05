@@ -310,10 +310,10 @@ namespace KiranaStoreUI.Controllers
             ViewBag.TotalProfit = totalProfit;
             ViewBag.StartDate = start.ToString("yyyy-MM-dd");
             ViewBag.EndDate = end.ToString("yyyy-MM-dd");
-
+            Console.WriteLine("Hello");
             return View(profitList);
+            
         }
-
-
+       
     }
 }
