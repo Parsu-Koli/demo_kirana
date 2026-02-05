@@ -1,0 +1,35 @@
+﻿@model KiranaStoreUI.Models.Order
+
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        <div class="card-header bg-warning text-dark">
+            <h3 class="mb-0">✏ Edit Order</h3>
+        </div>
+
+        <div class="card-body">
+            <form method="post">
+
+                <input type="hidden" asp-for="OrderId" />
+
+                <div class="mb-3">
+                    <label class="form-label">Customer ID</label>
+                    <input type="number" class="form-control" asp-for="CustomerId" required />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Order Date</label>
+                    <input type="date" class="form-control" asp-for="OrderDate" required />
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Total Amount (₹)</label>
+                    <input type="number" class="form-control" asp-for="TotalAmount" required />
+                </div>
+
+                <button class="btn btn-warning">Update Order</button>
+                <a href="/Order" class="btn btn-secondary">Cancel</a>
+
+            </form>
+        </div>
+    </div>
+</div>

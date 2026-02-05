@@ -1,0 +1,76 @@
+﻿@model List<KiranaStoreUI.Models.Customer>
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold"><i class="bi bi-people-fill"></i> Customer List</h2>
+
+        <a class="btn btn-success btn-lg" href="/Customer/Create">
+            <i class="bi bi-person-plus-fill"></i> Add Customer
+        </a>
+    </div>
+
+    <!-- Search Box -->
+    <div class="card shadow-sm mb-3">
+        <div class="card-body">
+            <div class="input-group">
+                <span class="input-group-text bg-success text-white">
+                    <i class="bi bi-search"></i>
+                </span>
+                <input type="text" id="searchBox" class="form-control form-control-lg" placeholder="Search customers...">
+            </div>
+        </div>
+    </div>
+
+    <!-- Table -->
+    <div class="card shadow-lg">
+        <div class="card-body p-0">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-success text-center">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th style="width:180px;">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody id="customerTable">
+                    @foreach (var c in Model)
+                    {
+                        <tr>
+                            <td class="text-center fw-bold">@c.CustomerId</td>
+                            <td>@c.Name</td>
+                            <td>@c.Phone</td>
+
+                            <td class="text-center">
+                                <a class="btn btn-warning btn-sm" href="/Customer/Edit/@c.CustomerId">
+                                    <i class="bi bi-pencil-square"></i> Edit
+                                </a>
+
+                                <a class="btn btn-danger btn-sm" href="/Customer/Delete/@c.CustomerId">
+                                    <i class="bi bi-trash3-fill"></i> Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        // 🔍 SEARCH FUNCTION
+        document.getElementById("searchBox").addEventListener("keyup", function () {
+            let value = this.value.toLowerCase();
+            let rows = document.querySelectorAll("#customerTable tr");
+
+            rows.forEach(row => {
+                row.style.display = row.innerText.toLowerCase().includes(value) ? "" : "none";
+            });
+        });
+    </script>
+}

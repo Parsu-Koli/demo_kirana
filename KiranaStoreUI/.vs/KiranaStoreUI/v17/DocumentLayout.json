@@ -1,0 +1,237 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|c:\\users\\user\\documents\\progarms\\documents\\jvit\\internship\\kirana store\\kiranastoreui\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|c:\\users\\user\\documents\\progarms\\documents\\jvit\\internship\\kirana store\\kiranastoreui\\views\\sale\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|solutionrelative:views\\sale\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|c:\\users\\user\\documents\\progarms\\documents\\jvit\\internship\\kirana store\\kiranastoreui\\controllers\\salecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|solutionrelative:controllers\\salecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|c:\\users\\user\\documents\\progarms\\documents\\jvit\\internship\\kirana store\\kiranastoreui\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|solutionrelative:controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|c:\\users\\user\\documents\\progarms\\documents\\jvit\\internship\\kirana store\\kiranastoreui\\views\\product\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|solutionrelative:views\\product\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|c:\\users\\user\\documents\\progarms\\documents\\jvit\\internship\\kirana store\\kiranastoreui\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|c:\\users\\user\\documents\\progarms\\documents\\jvit\\internship\\kirana store\\kiranastoreui\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|c:\\users\\user\\documents\\progarms\\documents\\jvit\\internship\\kirana store\\kiranastoreui\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|solutionrelative:controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|c:\\users\\user\\documents\\progarms\\documents\\jvit\\internship\\kirana store\\kiranastoreui\\models\\sale.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|solutionrelative:models\\sale.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|c:\\users\\user\\documents\\progarms\\documents\\jvit\\internship\\kirana store\\kiranastoreui\\views\\sale\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|solutionrelative:views\\sale\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|c:\\users\\user\\documents\\progarms\\documents\\jvit\\internship\\kirana store\\kiranastoreui\\views\\sale\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|solutionrelative:views\\sale\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|c:\\users\\user\\documents\\progarms\\documents\\jvit\\internship\\kirana store\\kiranastoreui\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|c:\\users\\user\\documents\\progarms\\documents\\jvit\\internship\\kirana store\\kiranastoreui\\models\\saleitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{444A9E16-30F6-428A-9145-B9D0378B4ABE}|KiranaStoreUI.csproj|solutionrelative:models\\saleitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Views\\Product\\Details.cshtml",
+              "RelativeDocumentMoniker": "Views\\Product\\Details.cshtml",
+              "ToolTip": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Views\\Product\\Details.cshtml",
+              "RelativeToolTip": "Views\\Product\\Details.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-24T05:43:11.924Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Sale.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Models\\Sale.cs",
+              "RelativeDocumentMoniker": "Models\\Sale.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Models\\Sale.cs",
+              "RelativeToolTip": "Models\\Sale.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAqwA4AAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-10T09:11:47.009Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Views\\Sale\\Create.cshtml",
+              "RelativeDocumentMoniker": "Views\\Sale\\Create.cshtml",
+              "ToolTip": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Views\\Sale\\Create.cshtml",
+              "RelativeToolTip": "Views\\Sale\\Create.cshtml",
+              "ViewState": "AgIAAAABAAAAAAAAAAAqwA8BAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-10T09:01:10.844Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ProductController.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "Controllers\\ProductController.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAEwB4AAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-10T11:38:09.62Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAEcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-10T09:48:55.95Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Controllers\\UserController.cs",
+              "RelativeToolTip": "Controllers\\UserController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-16T17:10:23Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SaleController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Controllers\\SaleController.cs",
+              "RelativeDocumentMoniker": "Controllers\\SaleController.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Controllers\\SaleController.cs",
+              "RelativeToolTip": "Controllers\\SaleController.cs",
+              "ViewState": "AgIAAK0AAAAAAAAAAAAowL0AAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-10T08:57:56.652Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T05:08:47.606Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "CategoryController.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Controllers\\CategoryController.cs",
+              "RelativeDocumentMoniker": "Controllers\\CategoryController.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Controllers\\CategoryController.cs",
+              "RelativeToolTip": "Controllers\\CategoryController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGwAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-16T18:14:58.369Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Views\\Sale\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Sale\\Index.cshtml",
+              "ToolTip": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Views\\Sale\\Index.cshtml",
+              "RelativeToolTip": "Views\\Sale\\Index.cshtml",
+              "ViewState": "AgIAADwAAAAAAAAAAAAAAKYAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-10T09:52:44.527Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Views\\Sale\\Details.cshtml",
+              "RelativeDocumentMoniker": "Views\\Sale\\Details.cshtml",
+              "ToolTip": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Views\\Sale\\Details.cshtml",
+              "RelativeToolTip": "Views\\Sale\\Details.cshtml",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAAEgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-10T10:03:34.954Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "SaleItem.cs",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Models\\SaleItem.cs",
+              "RelativeDocumentMoniker": "Models\\SaleItem.cs",
+              "ToolTip": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Models\\SaleItem.cs",
+              "RelativeToolTip": "Models\\SaleItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-10T10:09:58.598Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\user\\Documents\\progarms\\Documents\\JVIT\\Internship\\Kirana Store\\KiranaStoreUI\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-11T06:57:23.554Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

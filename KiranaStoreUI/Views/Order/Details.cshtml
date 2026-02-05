@@ -1,0 +1,22 @@
+﻿@model KiranaStoreUI.Models.Order
+
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">📄 Order Details</h3>
+        </div>
+
+        <div class="card-body">
+
+            <p><strong>Order ID:</strong> @Model.OrderId</p>
+            <p><strong>Date:</strong> @Model.OrderDate.ToShortDateString()</p>
+            <p><strong>Customer ID:</strong> @Model.CustomerId</p>
+            <p><strong>Total Amount:</strong> ₹ @Model.TotalAmount</p>
+
+            <a class="btn btn-warning" href="/Order/Edit/@Model.OrderId">Edit</a>
+            <a class="btn btn-danger" href="/Order/Delete/@Model.OrderId">Delete</a>
+            <a class="btn btn-secondary" href="/Order">Back</a>
+
+        </div>
+    </div>
+</div>

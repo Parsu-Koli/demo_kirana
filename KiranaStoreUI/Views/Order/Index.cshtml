@@ -1,0 +1,45 @@
+﻿@model List<KiranaStoreUI.Models.Order>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-3">
+        <h2 class="fw-bold">🧾 Orders</h2>
+        <a class="btn btn-success" href="/Order/Create">
+            <i class="bi bi-plus-circle"></i> Create Order
+        </a>
+    </div>
+
+    <table class="table table-hover table-bordered shadow-sm">
+        <thead class="bg-dark text-white">
+            <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Customer ID</th>
+                <th>Total Amount</th>
+                <th width="200px">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var o in Model)
+            {
+                <tr>
+                    <td>@o.OrderId</td>
+                    <td>@o.OrderDate.ToShortDateString()</td>
+                    <td>@o.CustomerId</td>
+                    <td>₹ @o.TotalAmount</td>
+
+                    <td>
+                        <a class="btn btn-sm btn-primary" href="/Order/Details/@o.OrderId">
+                            Details
+                        </a>
+                        <a class="btn btn-sm btn-warning" href="/Order/Edit/@o.OrderId">
+                            Edit
+                        </a>
+                        <a class="btn btn-sm btn-danger" href="/Order/Delete/@o.OrderId">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

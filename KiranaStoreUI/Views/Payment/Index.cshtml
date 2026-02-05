@@ -1,0 +1,67 @@
+﻿@model List<KiranaStoreUI.Models.Payment>
+
+@{
+    ViewBag.Title = "Payments List";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="m-0">Payments List</h2>
+
+        <a asp-controller="Payment" asp-action="Create" class="btn btn-success">
+            + Add Payment
+        </a>
+    </div>
+
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-success">@TempData["msg"]</div>
+    }
+
+    @if (TempData["error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["error"]</div>
+    }
+
+    <div class="card shadow">
+        <div class="card-body p-0">
+
+            <table class="table table-bordered table-striped m-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Payment ID</th>
+                        <th>Sale ID</th>
+                        <th>Amount (₹)</th>
+                        <th>Mode</th>
+                        <th>Payment Date</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var p in Model)
+                        {
+                            <tr>
+                                <td>@p.PaymentId</td>
+                                <td>@p.SaleId</td>
+                                <td>@p.AmountPaid</td>
+                                <td>@p.Mode</td>
+                                <td>@p.PaymentDate.ToString("dd-MM-yyyy hh:mm tt")</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center text-muted">No payments found</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>

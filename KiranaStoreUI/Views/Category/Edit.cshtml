@@ -1,0 +1,34 @@
+﻿@model KiranaStoreUI.Models.Category
+
+@{
+    ViewData["Title"] = "Edit Category";
+}
+
+<h2 class="mb-4 text-primary fw-bold">
+    <i class="bi bi-pencil-square"></i> Edit Category
+</h2>
+
+<div class="card shadow-lg border-0 rounded-4 p-4">
+    <form asp-action="Edit" method="post">
+
+        <input type="hidden" asp-for="CategoryId" />
+
+        <div class="mb-3">
+            <label class="form-label fw-semibold">
+                <i class="bi bi-tag"></i> Category Name
+            </label>
+            <input asp-for="CategoryName" class="form-control form-control-lg shadow-sm" />
+            <span asp-validation-for="CategoryName" class="text-danger"></span>
+        </div>
+
+        <div class="mt-4 d-flex gap-3">
+            <button type="submit" class="btn btn-primary btn-lg shadow">
+                <i class="bi bi-save"></i> Update
+            </button>
+
+            <a asp-action="Index" class="btn btn-secondary btn-lg shadow">
+                <i class="bi bi-arrow-left"></i> Back
+            </a>
+        </div>
+    </form>
+</div>

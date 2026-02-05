@@ -1,0 +1,31 @@
+﻿@model KiranaStoreUI.Models.Purchase
+
+<div class="container mt-4">
+
+    <h2 class="text-warning mb-3">Edit Purchase</h2>
+
+    <form method="post" class="shadow p-4 rounded border">
+
+        <input type="hidden" asp-for="PurchaseId" />
+
+        <div class="mb-3">
+            <label>Supplier ID</label>
+            <input class="form-control" asp-for="SupplierId" />
+        </div>
+
+        <div class="mb-3">
+            <label>Total Amount</label>
+            <input class="form-control" asp-for="TotalAmount" />
+        </div>
+
+        <div class="mb-3">
+            <label>Purchase Date</label>
+            <input type="date" class="form-control" asp-for="PurchaseDate" />
+        </div>
+
+        <button class="btn btn-warning">Update</button>
+        <a href="/Purchase/Index" class="btn btn-secondary">Cancel</a>
+
+    </form>
+
+</div>

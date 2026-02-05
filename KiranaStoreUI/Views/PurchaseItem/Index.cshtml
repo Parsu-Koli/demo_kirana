@@ -1,0 +1,72 @@
+﻿@model List<KiranaStoreUI.Models.PurchaseItem>
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-success m-0">
+            Purchase Items
+        </h2>
+
+        <a href="/PurchaseItem/Create?purchaseId=@ViewBag.PurchaseId"
+           class="btn btn-success shadow">
+            + Add Item
+        </a>
+    </div>
+
+
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-success text-light fw-bold">
+            Purchased Item Details
+        </div>
+
+        <div class="card-body p-0">
+            <table class="table table-hover table-bordered mb-0">
+
+                <thead class="table-success sticky-top" style="top:0; z-index:1;">
+                    <tr class="text-center">
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price (₹)</th>
+                        <th>Total (₹)</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        decimal sum = 0;
+
+                        foreach (var item in Model)
+                        {
+                            sum += item.Total;
+
+                            <tr>
+                                <td>@item.ProductId</td> 
+                                <td class="text-center">@item.Quantity</td>
+                                <td class="text-end">@item.Price.ToString("0.00")</td>
+                                <td class="text-end fw-bold text-success">@item.Total.ToString("0.00")</td>
+                            </tr>
+                        }
+
+                        <tr class="table-light">
+                            <td colspan="3" class="text-end fw-bold">Grand Total</td>
+                            <td class="text-end fw-bold text-primary border-2 border-success">
+                                ₹@sum.ToString("0.00")
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center text-muted py-3">
+                                No items added yet.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+</div>

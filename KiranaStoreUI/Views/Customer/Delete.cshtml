@@ -1,0 +1,13 @@
+﻿@model KiranaStoreUI.Models.Customer
+
+<h2>Delete Customer</h2>
+
+<div class="alert alert-danger">
+    Are you sure you want to delete <strong>@Model.Name</strong>?
+</div>
+
+<form method="post">
+    <input type="hidden" asp-for="CustomerId" />
+    <button class="btn btn-danger">Delete</button>
+    <a class="btn btn-secondary" href="/Customer">Cancel</a>
+</form>

@@ -1,0 +1,37 @@
+﻿@model List<KiranaStoreUI.Models.Purchase>
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between mb-3">
+        <h2 class="text-success">Purchase List</h2>
+        <a href="/Purchase/Create" class="btn btn-success">+ Add Purchase</a>
+    </div>
+
+    <table class="table table-bordered table-hover shadow">
+        <thead class="table-success">
+            <tr>
+                <th>Purchase ID</th>
+                <th>Supplier ID</th>
+                <th>Total Amount</th>
+                <th>Purchase Date</th>
+               
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td>@p.PurchaseId</td>
+                    <td>@p.SupplierId</td>
+                    <td>@p.TotalAmount</td>
+                    <td>@p.PurchaseDate.ToShortDateString()</td>
+
+                   
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+</div>

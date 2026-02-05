@@ -1,0 +1,39 @@
+﻿@model KiranaStoreUI.Models.Supplier
+
+<div class="container mt-4">
+
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">Supplier Details</h4>
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-striped table-bordered mb-4">
+                <tr>
+                    <th style="width: 25%">ID</th>
+                    <td>@Model.SupplierId</td>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <td>@Model.SupplierName</td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td>@Model.Phone</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>@Model.Address</td>
+                </tr>
+            </table>
+
+            <div class="d-flex gap-2">
+                <a asp-action="Index" class="btn btn-secondary px-4">Back</a>
+                <a asp-action="Edit" asp-route-id="@Model.SupplierId" class="btn btn-warning px-4">Edit</a>
+            </div>
+
+        </div>
+    </div>
+
+</div>

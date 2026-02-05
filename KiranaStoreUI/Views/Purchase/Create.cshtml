@@ -1,0 +1,28 @@
+﻿@model KiranaStoreUI.Models.Purchase
+
+<div class="container mt-4">
+
+    <h2 class="text-success mb-3">Add Purchase</h2>
+
+    <form method="post" class="shadow p-4 rounded border">
+
+        <div class="mb-3">
+            <label>Supplier ID</label>
+            <input class="form-control" asp-for="SupplierId" required />
+        </div>
+
+        <div class="mb-3">
+            <label>Total Amount</label>
+            <input class="form-control" asp-for="TotalAmount" required />
+        </div>
+
+        <div class="mb-3">
+            <label>Purchase Date</label>
+            <input type="date" class="form-control" asp-for="PurchaseDate" required />
+        </div>
+
+        <button class="btn btn-success">Save Purchase</button>
+        <a href="/Purchase/Index" class="btn btn-secondary">Back</a>
+
+    </form>
+</div>

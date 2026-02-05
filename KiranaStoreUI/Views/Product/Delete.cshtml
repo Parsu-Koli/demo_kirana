@@ -1,0 +1,12 @@
+﻿@model KiranaStoreUI.Models.Product
+
+<h2 class="text-danger">Delete Product?</h2>
+
+<div class="alert alert-danger">
+    Are you sure you want to delete <strong>@Model.ProductName</strong>?
+</div>
+
+<form method="post">
+    <button class="btn btn-danger">Yes, Delete</button>
+    <a href="/Product/Index" class="btn btn-secondary">Cancel</a>
+</form>

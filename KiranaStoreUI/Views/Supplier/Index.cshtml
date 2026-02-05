@@ -1,0 +1,65 @@
+﻿@model List<KiranaStoreUI.Models.Supplier>
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-success mb-0">Supplier List</h2>
+        <a class="btn btn-success px-3" asp-action="Create">
+            + Add Supplier
+        </a>
+    </div>
+
+    <div class="card shadow-lg">
+        <div class="card-body p-0">
+
+            <table class="table table-hover mb-0">
+                <thead class="bg-success text-white">
+                    <tr>
+                        <th style="width: 6%">ID</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th style="width: 25%" class="text-center">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var s in Model)
+                    {
+                        <tr>
+                            <td>
+                                <span class="badge bg-dark">@s.SupplierId</span>
+                            </td>
+
+                            <td class="fw-semibold">@s.SupplierName</td>
+                            <td>
+                                <span class="badge bg-secondary">@s.Phone</span>
+                            </td>
+                            <td>@s.Address</td>
+
+                            <td class="text-center">
+
+                                <a class="btn btn-sm btn-info me-1"
+                                   asp-action="Details" asp-route-id="@s.SupplierId">
+                                    View
+                                </a>
+
+                                <a class="btn btn-sm btn-warning me-1"
+                                   asp-action="Edit" asp-route-id="@s.SupplierId">
+                                    Edit
+                                </a>
+
+                                <a class="btn btn-sm btn-danger"
+                                   asp-action="Delete" asp-route-id="@s.SupplierId">
+                                    Delete
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>

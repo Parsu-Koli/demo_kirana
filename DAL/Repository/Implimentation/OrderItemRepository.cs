@@ -1,0 +1,34 @@
+﻿using DAL.Data;
+using DAL.Models;
+using DAL.Repository.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace DAL.Repository.Implementation
+{
+    public class OrderItemRepository : IOrderItemRepository
+    {
+        private readonly AppDbContext _context;
+
+        public OrderItemRepository(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        public void Add(OrderItem item)
+        {
+            _context.OrderItems.Add(item);
+            _context.SaveChanges();
+        }
+
+        public IEnumerable<OrderItem> GetAll()
+        {
+            return _context.OrderItems.ToList();
+        }
+
+        public IEnumerable<OrderItem> GetItemsByOrder(int orderId)
+        {
+            return _context.OrderItems.Where(x => x.OrderId == orderId).ToList();
+        }
+    }
+}

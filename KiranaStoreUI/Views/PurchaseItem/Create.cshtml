@@ -1,0 +1,46 @@
+﻿@model KiranaStoreUI.Models.PurchaseItem
+
+<div class="container mt-4">
+    <h2 class="text-success mb-3">Add Purchase Item</h2>
+
+    <div class="card shadow border-0">
+        <div class="card-body p-4">
+
+            <form method="post">
+
+                
+
+                <div class="mb-3">
+                    <label class="fw-bold">Purchase ID</label>
+                    <input asp-for="PurchaseId" class="form-control " />
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-bold">Product ID</label>
+                    <input asp-for="ProductId" class="form-control" required />
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="fw-bold">Quantity</label>
+                        <input asp-for="Quantity" class="form-control" id="qty" required />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="fw-bold">Price (₹)</label>
+                        <input asp-for="Price" class="form-control" id="price" required />
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-bold">Total (₹)</label>
+                    <input type="text" id="total" class="form-control bg-light fw-bold text-success" readonly />
+                </div>
+
+                <button class="btn btn-success">Add Item</button>
+
+            </form>
+
+        </div>
+    </div>
+</div>

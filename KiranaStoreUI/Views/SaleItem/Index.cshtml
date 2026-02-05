@@ -1,0 +1,62 @@
+﻿@model List<KiranaStoreUI.Models.SaleItem>
+
+<div class="container mt-4">
+
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center py-3">
+            <h4 class="mb-0">
+                <i class="bi bi-basket-fill"></i> All Sale Items
+            </h4>
+
+            <!-- CREATE BUTTON -->
+            <a href="/SaleItem/Create"
+               class="btn btn-light fw-bold shadow-sm">
+                <i class="bi bi-plus-circle-fill text-success"></i> Add Sale Item
+            </a>
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-hover table-striped align-middle text-center shadow-sm">
+                <thead class="table-success text-dark">
+                    <tr>
+                        <th>Sale ID</th>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Price (₹)</th>
+                        <th>Total (₹)</th>
+                     
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model == null || Model.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="6" class="py-4 text-muted fw-bold">
+                                <i class="bi bi-exclamation-circle"></i> No Sale Items Found
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="fw-bold">@item.SaleId</td>
+                                <td>@item.ProductId</td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Price</td>
+                                <td class="fw-bold">@item.Total</td>
+
+                              
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>

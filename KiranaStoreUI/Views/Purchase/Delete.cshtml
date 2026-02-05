@@ -1,0 +1,16 @@
+﻿@model KiranaStoreUI.Models.Purchase
+
+<div class="container mt-4">
+
+    <h2 class="text-danger">Delete Purchase</h2>
+
+    <div class="alert alert-danger">
+        Are you sure you want to delete Purchase <b>@Model.PurchaseId</b>?
+    </div>
+
+    <form method="post">
+        <button class="btn btn-danger">Yes, Delete</button>
+        <a href="/Purchase/Index" class="btn btn-secondary">Cancel</a>
+    </form>
+
+</div>

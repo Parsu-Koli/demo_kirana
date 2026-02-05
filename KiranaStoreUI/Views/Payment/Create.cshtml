@@ -1,0 +1,46 @@
+﻿@model KiranaStoreUI.Models.Payment
+
+<h2 class="mb-3">Add Payment</h2>
+
+@if (TempData["msg"] != null)
+{
+    <div class="alert alert-success">@TempData["msg"]</div>
+}
+
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger">@TempData["error"]</div>
+}
+
+<form method="post" class="card p-4 shadow-sm">
+
+    <input type="hidden" asp-for="SaleId" />
+
+    <div class="mb-3">
+        <label class="form-label">Sale ID</label>
+        <input asp-for="SaleId" class="form-control"  />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Amount Paid</label>
+        <input asp-for="AmountPaid" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Payment Mode</label>
+        <select asp-for="Mode" class="form-select">
+            <option value="">-- Select Mode --</option>
+            <option>Cash</option>
+            <option>UPI</option>
+            <option>Card</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Payment Date</label>
+        <input asp-for="PaymentDate" type="datetime-local" class="form-control" />
+    </div>
+
+    <button class="btn btn-success">Submit Payment</button>
+    <a href="/" class="btn btn-secondary">Back</a>
+</form>

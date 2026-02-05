@@ -1,0 +1,72 @@
+﻿@model KiranaStoreUI.Models.OrderItem
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm border-success">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">Add Order Item</h4>
+        </div>
+
+        <div class="card-body">
+            <form method="post">
+
+                @* <input type="hidden" asp-for="OrderId" value="@ViewBag.OrderId" /> *@
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Product ID</label>
+                        <input asp-for="ProductId" class="form-control border-success shadow-none" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Order ID</label>
+                        <input asp-for="OrderId" class="form-control border-success shadow-none" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Quantity</label>
+                        <input asp-for="Quantity" class="form-control border-success shadow-none" />
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Price</label>
+                        <input asp-for="Price" class="form-control border-success shadow-none" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Total</label>
+                        <input asp-for="Total" class="form-control border-success shadow-none bg-light" readonly />
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <a href="/OrderItem/Index?orderId=@ViewBag.OrderId" class="btn btn-outline-secondary px-4">
+                        Back
+                    </a>
+                    <button class="btn btn-success px-4">
+                        Save
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const qty = document.querySelector('[name="Quantity"]');
+    const price = document.querySelector('[name="Price"]');
+    const total = document.querySelector('[name="Total"]');
+
+    function calc() {
+        const q = parseFloat(qty.value) || 0;
+        const p = parseFloat(price.value) || 0;
+        total.value = q * p;
+    }
+
+    qty.addEventListener("input", calc);
+    price.addEventListener("input", calc);
+</script>

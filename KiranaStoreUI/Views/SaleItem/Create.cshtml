@@ -1,0 +1,58 @@
+﻿@model KiranaStoreUI.Models.SaleItem
+
+<div class="container mt-4">
+
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">Add Sale Item</h4>
+        </div>
+
+        <div class="card-body">
+
+            <form method="post">
+
+                <div class="mb-3">
+                    <label class="fw-bold">Product ID</label>
+                    <input asp-for="ProductId" class="form-control"  />
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-bold">Sale ID</label>
+                    <input asp-for="SaleId" class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-bold">Quantity</label>
+                    <input asp-for="Quantity" class="form-control" required id="qty" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-bold">Price</label>
+                    <input asp-for="Price" class="form-control" required id="price" />
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-bold">Total</label>
+                    <input asp-for="Total" class="form-control fw-bold bg-light" readonly id="total" />
+                </div>
+
+                <button class="btn btn-success px-4">Save</button>
+                <a asp-action="Index" asp-route-saleId="@Model.SaleId" class="btn btn-secondary px-4">Back</a>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+<script>
+    document.getElementById("qty").addEventListener("input", calculate);
+    document.getElementById("price").addEventListener("input", calculate);
+
+    function calculate() {
+        let qty = parseFloat(document.getElementById("qty").value) || 0;
+        let price = parseFloat(document.getElementById("price").value) || 0;
+        document.getElementById("total").value = qty * price;
+    }
+</script>

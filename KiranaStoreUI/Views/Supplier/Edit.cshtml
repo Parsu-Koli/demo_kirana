@@ -1,0 +1,41 @@
+﻿@model KiranaStoreUI.Models.Supplier
+
+<div class="container mt-4">
+
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Edit Supplier</h4>
+        </div>
+
+        <div class="card-body">
+
+            <form method="post">
+
+                <input type="hidden" asp-for="SupplierId" />
+
+                <div class="mb-3">
+                    <label class="fw-bold">Supplier Name</label>
+                    <input asp-for="SupplierName" class="form-control" required />
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-bold">Phone</label>
+                    <input asp-for="Phone" class="form-control" required />
+                </div>
+
+                <div class="mb-3">
+                    <label class="fw-bold">Address</label>
+                    <input asp-for="Address" class="form-control" required />
+                </div>
+
+                <div class="mt-3 d-flex gap-2">
+                    <button type="submit" class="btn btn-primary px-4">Update</button>
+                    <a asp-action="Index" class="btn btn-secondary px-4">Back</a>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

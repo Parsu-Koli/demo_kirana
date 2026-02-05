@@ -1,0 +1,55 @@
+﻿@model List<KiranaStoreUI.Models.OrderItem>
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm border-success">
+
+        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Order Items</h4>
+
+            <a class="btn btn-light btn-sm fw-bold px-3" href="/OrderItem/Create?orderId=@ViewBag.OrderId">
+                + Add Item
+            </a>
+        </div>
+
+        <div class="card-body p-0">
+
+            <table class="table table-hover table-striped mb-0">
+                <thead class="table-success fw-bold text-dark">
+                    <tr>
+                        <th>Product</th>
+                        <th class="text-center">Qty</th>
+                        <th class="text-end">Price</th>
+                        <th class="text-end">Total</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.ProductId</td>
+                                <td class="text-center">@item.Quantity</td>
+                                <td class="text-end">@item.Price</td>
+                                <td class="text-end fw-bold text-success">@item.Total</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center py-3 text-muted">
+                                No items found. Click Add Item to continue.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+        </div>
+    </div>
+
+</div>

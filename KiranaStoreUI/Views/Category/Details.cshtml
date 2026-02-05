@@ -1,0 +1,33 @@
+﻿@model KiranaStoreUI.Models.Category
+
+@{
+    ViewData["Title"] = "Category Details";
+}
+
+<h2 class="mb-4 text-primary fw-bold">
+    <i class="bi bi-info-circle-fill"></i> Category Details
+</h2>
+
+<div class="card shadow-lg border-0 rounded-4">
+    <div class="card-body p-4">
+
+        <div class="mb-3">
+            <h5 class="text-secondary"><i class="bi bi-hash"></i> Category ID</h5>
+            <div class="fs-5 fw-semibold">@Model.CategoryId</div>
+        </div>
+
+        <hr />
+
+        <div class="mb-3">
+            <h5 class="text-secondary"><i class="bi bi-tag-fill"></i> Category Name</h5>
+            <div class="fs-5 fw-semibold">@Model.CategoryName</div>
+        </div>
+
+    </div>
+</div>
+
+<div class="mt-4">
+    <a asp-action="Index" class="btn btn-secondary btn-lg shadow">
+        <i class="bi bi-arrow-left-circle"></i> Back
+    </a>
+</div>

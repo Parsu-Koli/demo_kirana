@@ -1,0 +1,53 @@
+﻿@model KiranaStoreUI.Models.Customer
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-header bg-success text-white text-center py-3">
+                    <h3 class="mb-0">
+                        <i class="bi bi-person-plus-fill"></i> Add Customer
+                    </h3>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <form method="post">
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Full Name</label>
+                            <input type="text" asp-for="Name" class="form-control form-control-lg" placeholder="Enter customer name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Mobile Number</label>
+                            <input type="text" asp-for="Phone" class="form-control form-control-lg" placeholder="Enter mobile number" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid gap-2 mt-4">
+                            <button class="btn btn-success btn-lg">
+                                <i class="bi bi-save-fill"></i> Save Customer
+                            </button>
+                        </div>
+
+                    </form>
+
+                    <div class="text-center mt-3">
+                        <a href="/Customer" class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-arrow-left-circle"></i> Back to List
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,277 @@
+﻿@model KiranaStoreUI.Models.ViewModels.SaleCustomerVM
+
+<div class="container mt-4">
+
+    <h2 class="text-success fw-bold mb-4">➕ Add Sale & Customer</h2>
+
+    <div class="card shadow border-0">
+        <div class="card-body p-4">
+
+            <form method="post" id="saleForm">
+
+                <div asp-validation-summary="All" class="alert alert-danger"></div>
+
+                <div class="row">
+
+                    <!-- LEFT SIDE (SALE SECTION) -->
+                    <div class="col-md-6">
+                        <h4 class="text-primary mb-3">Sale Details</h4>
+
+                        <div class="mb-3 mt-3">
+                            <label class="fw-bold">Invoice Number</label>
+                            <input asp-for="Sale.InvoiceNumber" id="Sale_InvoiceNumber"
+                                   class="form-control fw-bold"
+                                   value="@Model.Sale.InvoiceNumber"
+                                   readonly />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="fw-bold">Total Amount</label>
+                            <input asp-for="Sale.TotalAmount" id="total"
+                                   class="form-control text-end fw-bold"
+                                   required readonly />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="fw-bold">Discount</label>
+                            <input asp-for="Sale.Discount" id="discount"
+                                   class="form-control text-end"
+                                   value="@Model.Sale.Discount" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="fw-bold">Net Amount</label>
+                            <input asp-for="Sale.NetAmount" id="net"
+                                   class="form-control bg-light fw-bold text-success text-end"
+                                   readonly />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="fw-bold">Payment Mode</label>
+                            <select asp-for="Sale.PaymentMode" class="form-select">
+                                <option value="Cash">Cash</option>
+                                <option value="UPI">UPI</option>
+                                <option value="Card">Card</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="fw-bold">Sale Date</label>
+                            <input asp-for="Sale.SaleDate"
+                                   type="date"
+                                   class="form-control"
+                                   required />
+                        </div>
+
+                    </div>
+
+                    <!-- RIGHT SIDE (CUSTOMER SECTION) -->
+                    <div class="col-md-6">
+                        <h4 class="text-primary mb-3">Customer Details</h4>
+
+                        <input asp-for="Customer.CustomerId" type="hidden" />
+
+                        <div class="mb-3">
+                            <label class="fw-bold">Customer Name</label>
+                            <input asp-for="Customer.Name"
+                                   class="form-control"
+                                   required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="fw-bold">Phone</label>
+                            <input asp-for="Customer.Phone"
+                                   class="form-control"
+                                   required />
+                        </div>
+
+                        <!-- PRODUCT SEARCH BOX -->
+                        <div class="mb-3">
+                            <label class="fw-bold">Search Product</label>
+                            <input type="text" id="productSearch"
+                                   class="form-control"
+                                   placeholder="Start typing product name..." autocomplete="off" />
+
+                            <div id="searchResult"
+                                 class="list-group mt-2"
+                                 style="display:none; max-height:150px; overflow-y:auto;"></div>
+                        </div>
+
+                        <!-- SELECTED PRODUCTS VIEW -->
+                        <div class="mb-3 border rounded p-2 bg-light">
+                            <label class="fw-bold d-block mb-1">Selected Products</label>
+                            <ul id="selectedProducts" class="list-group"></ul>
+                        </div>
+
+                        <input type="hidden" id="selectedProductIds" name="SelectedProductIds" />
+
+                    </div>
+
+                </div>
+
+                <hr />
+
+                <button class="btn btn-success px-4">Submit</button>
+                <a href="/Sale/Index" class="btn btn-secondary px-4">Back</a>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    //----------------------------------------------------
+    // NET CALCULATION
+    //----------------------------------------------------
+    const total = document.getElementById("total");
+    const discount = document.getElementById("discount");
+    const net = document.getElementById("net");
+
+    function calcNet() {
+        const t = parseFloat(total.value) || 0;
+        const d = parseFloat(discount.value) || 0;
+        net.value = t - d;
+    }
+    discount.addEventListener("input", calcNet);
+
+    //----------------------------------------------------
+    // PRODUCT MULTIPLE SELECT LOGIC
+    //----------------------------------------------------
+    const searchBox = document.getElementById("productSearch");
+    const resultBox = document.getElementById("searchResult");
+    const selectedList = document.getElementById("selectedProducts");
+    const hiddenIds = document.getElementById("selectedProductIds");
+
+    let selectedProducts = [];
+    let totalAmount = 0;
+
+    searchBox.addEventListener("keyup", () => {
+        const keyword = searchBox.value.trim();
+        if (keyword.length < 2) {
+            resultBox.style.display = "none";
+            return;
+        }
+
+        fetch(`/Sale/SearchProduct?keyword=${encodeURIComponent(keyword)}`)
+            .then(res => res.json())
+            .then(data => {
+                resultBox.innerHTML = "";
+                if (!data.success || !data.products?.length) {
+                    resultBox.innerHTML = `<div class='list-group-item text-danger'>No Products Found</div>`;
+                    resultBox.style.display = "block";
+                    return;
+                }
+                data.products.forEach(p => {
+                    resultBox.innerHTML += `
+                        <a class="list-group-item list-group-item-action"
+                           onclick="addProduct(${p.productId}, '${p.productName}', ${p.sellingPrice})">
+                            <strong>${p.productName}</strong><br/>
+                            <small>Price: ₹${p.sellingPrice}</small>
+                        </a>`;
+                });
+                resultBox.style.display = "block";
+            });
+    });
+
+    window.addProduct = function (id, name, price) {
+        let existing = selectedProducts.find(x => x.id === id);
+        if (existing) existing.qty += 1;
+        else selectedProducts.push({ id, name, price, qty: 1 });
+        calculateTotal();
+        renderSelectedItems();
+        resultBox.style.display = "none";
+        searchBox.value = "";
+    };
+
+    window.removeProduct = function (id) {
+        selectedProducts = selectedProducts.filter(x => x.id !== id);
+        calculateTotal();
+        renderSelectedItems();
+    };
+
+    window.increaseQty = function (id) {
+        let p = selectedProducts.find(x => x.id === id);
+        if (!p) return;
+        p.qty += 1;
+        calculateTotal();
+        renderSelectedItems();
+    };
+
+    window.decreaseQty = function (id) {
+        let p = selectedProducts.find(x => x.id === id);
+        if (!p) return;
+        if (p.qty > 1) p.qty -= 1;
+        else removeProduct(id);
+        calculateTotal();
+        renderSelectedItems();
+    };
+
+    function calculateTotal() {
+        totalAmount = selectedProducts.reduce((sum, x) => sum + x.price * x.qty, 0);
+        total.value = totalAmount;
+        calcNet();
+    }
+
+    function renderSelectedItems() {
+        selectedList.innerHTML = "";
+        selectedProducts.forEach(item => {
+            selectedList.innerHTML += `
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>${item.name}</strong>
+                            <small class='text-muted'> (₹${item.price} each)</small>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-outline-danger" onclick="decreaseQty(${item.id})">-</button>
+                            <button type="button" class="btn btn-sm btn-light disabled">${item.qty}</button>
+                            <button type="button" class="btn btn-sm btn-outline-success" onclick="increaseQty(${item.id})">+</button>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-danger ms-2" onclick="removeProduct(${item.id})">X</button>
+                    </div>
+                </li>`;
+        });
+        hiddenIds.value = selectedProducts.map(x => x.id + "-" + x.qty).join(",");
+    }
+
+    //----------------------------------------------------
+    // PREPARE SALEITEMS JSON BEFORE SUBMIT
+    //----------------------------------------------------
+    const form = document.getElementById("saleForm");
+
+    form.addEventListener("submit", (e) => {
+        if (selectedProducts.length === 0) {
+            alert("Please select at least one product.");
+            e.preventDefault();
+            return;
+        }
+
+        // Create hidden inputs for SaleItems dynamically
+        selectedProducts.forEach((p, index) => {
+            const inputProductId = document.createElement("input");
+            inputProductId.type = "hidden";
+            inputProductId.name = `Sale.SaleItems[${index}].ProductId`;
+            inputProductId.value = p.id;
+            form.appendChild(inputProductId);
+
+            const inputQty = document.createElement("input");
+            inputQty.type = "hidden";
+            inputQty.name = `Sale.SaleItems[${index}].Quantity`;
+            inputQty.value = p.qty;
+            form.appendChild(inputQty);
+
+            const inputPrice = document.createElement("input");
+            inputPrice.type = "hidden";
+            inputPrice.name = `Sale.SaleItems[${index}].Price`;
+            inputPrice.value = p.price;
+            form.appendChild(inputPrice);
+
+            const inputTotal = document.createElement("input");
+            inputTotal.type = "hidden";
+            inputTotal.name = `Sale.SaleItems[${index}].Total`;
+            inputTotal.value = p.qty * p.price;
+            form.appendChild(inputTotal);
+        });
+    });
+
+</script>
