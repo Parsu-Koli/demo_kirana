@@ -77,7 +77,7 @@ namespace KiranaStoreUI.Models
         public decimal SellingPrice { get; set; }
 
         [Range(0, int.MaxValue, ErrorMessage = "Quantity in stock cannot be negative")]
-        public int QuantityInStock { get; set; }
+        public decimal QuantityInStock { get; set; }
 
         public bool Active { get; set; } = true;
     }

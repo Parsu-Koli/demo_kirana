@@ -87,7 +87,7 @@ namespace DAL.Repository.Implementation
             return _context.Products.Any(x => x.ProductName == name);
         }
 
-        public void DecreaseProductStock(int productId, int qty)
+        public void DecreaseProductStock(int productId, decimal qty)
         {
             var product = _context.Products.Find(productId);
 
@@ -101,7 +101,7 @@ namespace DAL.Repository.Implementation
             _context.SaveChanges();
         }
 
-        public void IncreaseProductStock(int productId, int qty)
+        public void IncreaseProductStock(int productId, decimal qty)
         {
             var product = _context.Products.Find(productId);
 

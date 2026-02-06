@@ -95,16 +95,43 @@ namespace KiranaStoreUI.Controllers
 
             vm.Sale.CustomerId = createdCustomer.CustomerId;
 
-            // 2️⃣ Clean SaleItems
+            // 🔥 2️⃣ LOAD PRODUCTS ONCE
+            var products = await _client.GetFromJsonAsync<List<Product>>("Product/GetProducts");
+
+            decimal totalAmount = 0;
+
             if (vm.Sale.SaleItems != null)
+            {
                 foreach (var item in vm.Sale.SaleItems)
+                {
+                    var product = products.FirstOrDefault(p => p.ProductId == item.ProductId);
+                    if (product == null) continue;
+
+                    // ✅ AUTO PRICE FROM PRODUCT
+                    item.Price = product.SellingPrice;
+
+                    // ✅ AUTO TOTAL = Quantity × Price
+                    item.Total = item.Quantity * item.Price;
+
+                    totalAmount += item.Total;
+
+                    // prevent circular ref
+                    item.Product = null;
                     item.Sale = null;
+                }
+            }
+
+            // ✅ SET BILL TOTALS
+            vm.Sale.TotalAmount = totalAmount;
+            vm.Sale.NetAmount = totalAmount - vm.Sale.Discount;
+            vm.Sale.SaleDate = DateTime.Now;
 
             // 3️⃣ Create Sale
             var saleResponse = await _client.PostAsJsonAsync("Sale/AddSale", vm.Sale);
             if (saleResponse.IsSuccessStatusCode)
             {
-                TempData["SuccessMsg"] = $"Sale created successfully! Invoice: {vm.Sale.InvoiceNumber}";
+                TempData["SuccessMsg"] =
+                    $"Sale created successfully! Invoice: {vm.Sale.InvoiceNumber}";
                 return RedirectToAction("Index");
             }
 
@@ -112,6 +139,7 @@ namespace KiranaStoreUI.Controllers
             ViewBag.NextInvoice = vm.Sale.InvoiceNumber;
             return View(vm);
         }
+
 
         // ---------------- SEARCH PRODUCT ----------------
         [HttpGet]
@@ -208,15 +236,81 @@ namespace KiranaStoreUI.Controllers
             return View(vm);
         }
 
+        //[HttpPost]
+        //public async Task<IActionResult> Edit(SaleCustomerVM vm)
+        //{
+        //    AddJwtToken();
+
+        //    // ✅ FIX 1: If validation fails, reload products for view
+        //    if (!ModelState.IsValid)
+        //    {
+        //        // reload products so ProductName doesn't break in view
+        //        var products = await _client.GetFromJsonAsync<List<Product>>("Product/GetProducts");
+        //        var productDict = products.ToDictionary(p => p.ProductId);
+
+        //        if (vm.Sale?.SaleItems != null)
+        //        {
+        //            foreach (var item in vm.Sale.SaleItems)
+        //            {
+        //                if (productDict.TryGetValue(item.ProductId, out var prod))
+        //                    item.Product = prod;
+        //            }
+        //        }
+
+        //        return View(vm);
+        //    }
+
+        //    // 🔁 SAME LOGIC: prevent circular reference
+        //    if (vm.Sale.SaleItems != null)
+        //    {
+        //        foreach (var item in vm.Sale.SaleItems)
+        //            item.Sale = null;
+        //    }
+
+        //    // 1️⃣ SAME LOGIC: Update Customer
+        //    var customerResponse =
+        //        await _client.PutAsJsonAsync("Customer/UpdateCustomer", vm.Customer);
+
+        //    if (!customerResponse.IsSuccessStatusCode)
+        //    {
+        //        ModelState.AddModelError("", "Failed to update customer.");
+        //        return View(vm);
+        //    }
+
+        //    // 2️⃣ SAME LOGIC: Assign CustomerId
+        //    vm.Sale.CustomerId = vm.Customer.CustomerId;
+
+        //    // 3️⃣ SAME LOGIC: Recalculate NetAmount
+        //    vm.Sale.NetAmount = vm.Sale.TotalAmount - vm.Sale.Discount;
+
+        //    // 4️⃣ SAME LOGIC: Update Sale
+        //    var saleResponse =
+        //        await _client.PutAsJsonAsync("Sale/UpdateSale", vm.Sale);
+
+        //    if (saleResponse.IsSuccessStatusCode)
+        //        return RedirectToAction("Index");
+
+        //    ModelState.AddModelError("", "Failed to update sale.");
+        //    return View(vm);
+        //}
+
+
         [HttpPost]
         public async Task<IActionResult> Edit(SaleCustomerVM vm)
         {
             AddJwtToken();
 
-            if (!ModelState.IsValid)
-                return View(vm);
+            // 🔥 FIX 1: Assign CustomerId BEFORE validation
+            vm.Sale.CustomerId = vm.Customer.CustomerId;
 
-            // 🔁 Prevent circular references in SaleItems
+            // 🔥 FIX 2: Validation AFTER fixing required fields
+            if (!ModelState.IsValid)
+            {
+                await ReloadProducts(vm);
+                return View(vm);
+            }
+
+            // 🔁 Prevent circular refs
             if (vm.Sale.SaleItems != null)
             {
                 foreach (var item in vm.Sale.SaleItems)
@@ -224,27 +318,31 @@ namespace KiranaStoreUI.Controllers
             }
 
             // 1️⃣ Update Customer
-            var customerResponse = await _client.PutAsJsonAsync("Customer/UpdateCustomer", vm.Customer);
+            var customerResponse =
+                await _client.PutAsJsonAsync("Customer/UpdateCustomer", vm.Customer);
+
             if (!customerResponse.IsSuccessStatusCode)
             {
                 ModelState.AddModelError("", "Failed to update customer.");
+                await ReloadProducts(vm);
                 return View(vm);
             }
 
-            // 2️⃣ Assign CustomerId to Sale before updating
-            vm.Sale.CustomerId = vm.Customer.CustomerId;
-
-            // 3️⃣ Optional: Recalculate NetAmount server-side
+            // 2️⃣ Recalculate NetAmount
             vm.Sale.NetAmount = vm.Sale.TotalAmount - vm.Sale.Discount;
 
-            // 4️⃣ Update Sale
-            var saleResponse = await _client.PutAsJsonAsync("Sale/UpdateSale", vm.Sale);
+            // 3️⃣ Update Sale
+            var saleResponse =
+                await _client.PutAsJsonAsync("Sale/UpdateSale", vm.Sale);
+
             if (saleResponse.IsSuccessStatusCode)
                 return RedirectToAction("Index");
 
             ModelState.AddModelError("", "Failed to update sale.");
+            await ReloadProducts(vm);
             return View(vm);
         }
+
 
 
         public async Task<IActionResult> ProfitByDateRange(DateTime? startDate, DateTime? endDate)
@@ -312,6 +410,22 @@ namespace KiranaStoreUI.Controllers
             ViewBag.EndDate = end.ToString("yyyy-MM-dd");
 
             return View(profitList);
+        }
+
+
+        private async Task ReloadProducts(SaleCustomerVM vm)
+        {
+            var products = await _client.GetFromJsonAsync<List<Product>>("Product/GetProducts");
+            var productDict = products.ToDictionary(p => p.ProductId);
+
+            if (vm.Sale?.SaleItems != null)
+            {
+                foreach (var item in vm.Sale.SaleItems)
+                {
+                    if (productDict.TryGetValue(item.ProductId, out var prod))
+                        item.Product = prod;
+                }
+            }
         }
 
 

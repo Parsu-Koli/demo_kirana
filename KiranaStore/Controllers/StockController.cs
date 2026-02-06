@@ -18,7 +18,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("IncreaseStock")]
-        public IActionResult IncreaseStock(int productId, int qty)
+        public IActionResult IncreaseStock(int productId, decimal qty)
         {
             try
             {
@@ -32,7 +32,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("DecreaseStock")]
-        public IActionResult DecreaseStock(int productId, int qty)
+        public IActionResult DecreaseStock(int productId, decimal qty)
         {
             try
             {

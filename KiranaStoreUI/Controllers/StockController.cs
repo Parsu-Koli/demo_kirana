@@ -14,7 +14,6 @@ namespace KiaranaStroreUI.Controllers
             _factory = factory;
         }
 
-        // ✅ Helper: Create HttpClient with JWT
         private HttpClient CreateClientWithToken()
         {
             var client = _factory.CreateClient("api");
@@ -27,7 +26,6 @@ namespace KiaranaStroreUI.Controllers
             return client;
         }
 
-        // LIST
         public async Task<IActionResult> Index()
         {
             var client = CreateClientWithToken();
@@ -35,10 +33,8 @@ namespace KiaranaStroreUI.Controllers
             return View(data);
         }
 
-        // CREATE (GET)
         public IActionResult Create() => View();
 
-        // CREATE (POST)
         [HttpPost]
         public async Task<IActionResult> Create(Stock model)
         {
@@ -51,7 +47,6 @@ namespace KiaranaStroreUI.Controllers
             return View(model);
         }
 
-        // CHART
         public async Task<IActionResult> Chart()
         {
             var client = CreateClientWithToken();
@@ -59,7 +54,6 @@ namespace KiaranaStroreUI.Controllers
             return View(data);
         }
 
-        // EDIT (GET)
         public async Task<IActionResult> Edit(int id)
         {
             var client = CreateClientWithToken();
@@ -67,7 +61,6 @@ namespace KiaranaStroreUI.Controllers
             return View(data);
         }
 
-        // EDIT (POST)
         [HttpPost]
         public async Task<IActionResult> Edit(Stock model)
         {
@@ -80,7 +73,6 @@ namespace KiaranaStroreUI.Controllers
             return View(model);
         }
 
-        // DELETE (GET)
         public async Task<IActionResult> Delete(int id)
         {
             var client = CreateClientWithToken();
@@ -88,12 +80,11 @@ namespace KiaranaStroreUI.Controllers
             return View(data);
         }
 
-        // DELETE CONFIRMED
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var client = CreateClientWithToken();
-            await client.PostAsync($"Stock/DecreaseStock?productId={id}&qty=0", null);
+            await client.DeleteAsync($"Stock/Delete/{id}");
             return RedirectToAction("Index");
         }
     }

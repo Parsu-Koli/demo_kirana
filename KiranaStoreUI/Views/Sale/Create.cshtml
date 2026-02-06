@@ -11,301 +11,230 @@
 
                 <div asp-validation-summary="All" class="alert alert-danger"></div>
 
+                <!-- 🔥 IMPORTANT -->
+                <input asp-for="Customer.CustomerId" type="hidden" />
+
                 <div class="row">
 
-                    
+                    <!-- SALE DETAILS -->
                     <div class="col-md-6">
                         <h4 class="text-primary mb-3">Sale Details</h4>
 
-                        <div class="mb-3 mt-3">
-                            <label class="fw-bold">Invoice Number</label>
-                            <input asp-for="Sale.InvoiceNumber" id="Sale_InvoiceNumber"
-                                   class="form-control fw-bold"
-                                   value="@Model.Sale.InvoiceNumber"
-                                   readonly />
+                        <div class="mb-3">
+                            <label>Invoice Number</label>
+                            <input asp-for="Sale.InvoiceNumber" class="form-control" readonly />
                         </div>
 
                         <div class="mb-3">
-                            <label class="fw-bold">Total Amount</label>
+                            <label>Total Amount</label>
                             <input asp-for="Sale.TotalAmount" id="total"
-                                   class="form-control text-end fw-bold"
-                                   required readonly />
+                                   class="form-control text-end fw-bold" readonly />
                         </div>
 
                         <div class="mb-3">
-                            <label class="fw-bold">Discount</label>
+                            <label>Discount</label>
                             <input asp-for="Sale.Discount" id="discount"
-                                   class="form-control text-end"
-                                   value="@Model.Sale.Discount" />
+                                   class="form-control text-end" />
                         </div>
 
                         <div class="mb-3">
-                            <label class="fw-bold">Net Amount</label>
+                            <label>Net Amount</label>
                             <input asp-for="Sale.NetAmount" id="net"
-                                   class="form-control bg-light fw-bold text-success text-end"
-                                   readonly />
+                                   class="form-control fw-bold text-success text-end" readonly />
                         </div>
 
                         <div class="mb-3">
-                            <label class="fw-bold">Payment Mode</label>
+                            <label>Payment Mode</label>
                             <select asp-for="Sale.PaymentMode" class="form-select">
-                                <option value="Cash">Cash</option>
-                                <option value="UPI">UPI</option>
-                                <option value="Card">Card</option>
+                                <option>Cash</option>
+                                <option>UPI</option>
+                                <option>Card</option>
                             </select>
                         </div>
 
                         <div class="mb-3">
-                            <label class="fw-bold">Sale Date</label>
-                            <input asp-for="Sale.SaleDate"
-                                   type="date"
-                                   class="form-control"
-                                   required />
+                            <label>Sale Date</label>
+                            <input asp-for="Sale.SaleDate" type="date" class="form-control" />
                         </div>
-
                     </div>
 
-                    
+                    <!-- CUSTOMER + PRODUCT -->
                     <div class="col-md-6">
                         <h4 class="text-primary mb-3">Customer Details</h4>
 
-                        <input asp-for="Customer.CustomerId" type="hidden" />
-
                         <div class="mb-3">
-                            <label class="fw-bold">Customer Name</label>
-                            <input asp-for="Customer.Name"
-                                   class="form-control"
-                                   required />
+                            <label>Name</label>
+                            <input asp-for="Customer.Name" class="form-control" />
                         </div>
 
                         <div class="mb-3">
-                            <label class="fw-bold">Phone</label>
-                            <input asp-for="Customer.Phone"
-                                   class="form-control"
-                                   required />
+                            <label>Phone</label>
+                            <input asp-for="Customer.Phone" class="form-control" />
                         </div>
 
-                        
-                        <div class="mb-3">
-                            <label class="fw-bold">Search Product</label>
-                            <input type="text" id="productSearch"
-                                   class="form-control"
-                                   placeholder="Start typing product name..." autocomplete="off" />
+                        <hr />
 
-                            <div id="searchResult"
-                                 class="list-group mt-2"
-                                 style="display:none; max-height:150px; overflow-y:auto;"></div>
-                            </div>
+                        <label>Search Product</label>
+                        <input type="text" id="productSearch"
+                               class="form-control"
+                               placeholder="Type product name..." />
 
-                        <div class="mb-3">
-                            <label class="fw-bold">Scan Product</label>
-                            <button type="button" class="btn btn-outline-primary btn-sm" onclick="startScan()">📷 Scan</button>
-                        </div>
+                        <div id="searchResult"
+                             class="list-group mt-2"
+                             style="display:none;"></div>
 
-                        <div id="barcodeScanner" style="width:300px; display:none;"></div>
+                        <hr />
 
-
-                        
-                        <div class="mb-3 border rounded p-2 bg-light">
-                            <label class="fw-bold d-block mb-1">Selected Products</label>
-                            <ul id="selectedProducts" class="list-group"></ul>
-                        </div>
-
-                        <input type="hidden" id="selectedProductIds" name="SelectedProductIds" />
-
+                        <h6 class="fw-bold">Selected Products</h6>
+                        <ul id="selectedProducts" class="list-group"></ul>
                     </div>
 
                 </div>
 
                 <hr />
-
-                <button class="btn btn-success px-4">Submit</button>
-                <a href="/Sale/Index" class="btn btn-secondary px-4">Back</a>
-
+                <button class="btn btn-success">Submit</button>
+                <a href="/Sale/Index" class="btn btn-secondary">Back</a>
             </form>
         </div>
     </div>
 </div>
 
 <script>
-    
     const total = document.getElementById("total");
     const discount = document.getElementById("discount");
     const net = document.getElementById("net");
 
-    function calcNet() {
-        const t = parseFloat(total.value) || 0;
-        const d = parseFloat(discount.value) || 0;
-        net.value = t - d;
-    }
-    discount.addEventListener("input", calcNet);
-
-    
-    const searchBox = document.getElementById("productSearch");
-    const resultBox = document.getElementById("searchResult");
-    const selectedList = document.getElementById("selectedProducts");
-    const hiddenIds = document.getElementById("selectedProductIds");
+    discount.addEventListener("input", () => {
+        net.value = (parseFloat(total.value || 0) - parseFloat(discount.value || 0)).toFixed(2);
+    });
 
     let selectedProducts = [];
-    let totalAmount = 0;
 
-    searchBox.addEventListener("keyup", () => {
-        const keyword = searchBox.value.trim();
-        if (keyword.length < 2) {
-            resultBox.style.display = "none";
-            return;
-        }
+    // 🔍 SEARCH PRODUCT
+    document.getElementById("productSearch").addEventListener("keyup", function () {
+        let q = this.value.trim();
+        if (q.length < 2) return;
 
-        fetch(`/Sale/SearchProduct?keyword=${encodeURIComponent(keyword)}`)
-            .then(res => res.json())
-            .then(data => {
-                resultBox.innerHTML = "";
-                if (!data.success || !data.products?.length) {
-                    resultBox.innerHTML = `<div class='list-group-item text-danger'>No Products Found</div>`;
-                    resultBox.style.display = "block";
-                    return;
-                }
-                data.products.forEach(p => {
-                    resultBox.innerHTML += `
-                        <a class="list-group-item list-group-item-action"
-                           onclick="addProduct(${p.productId}, '${p.productName}', ${p.sellingPrice})">
-                            <strong>${p.productName}</strong><br/>
-                            <small>Price: ₹${p.sellingPrice}</small>
-                        </a>`;
+        fetch(`/Sale/SearchProduct?keyword=${q}`)
+            .then(r => r.json())
+            .then(d => {
+                let box = document.getElementById("searchResult");
+                box.innerHTML = "";
+                box.style.display = "block";
+
+                d.products.forEach(p => {
+                    box.innerHTML += `
+                    <a class="list-group-item"
+                       onclick="addProduct(${p.productId}, '${p.productName}', ${p.sellingPrice})">
+                        ${p.productName} - ₹${p.sellingPrice}/Kg
+                    </a>`;
                 });
-                resultBox.style.display = "block";
             });
     });
 
-    window.addProduct = function (id, name, price) {
-        let existing = selectedProducts.find(x => x.id === id);
-        if (existing) existing.qty += 1;
-        else selectedProducts.push({ id, name, price, qty: 1 });
-        calculateTotal();
-        renderSelectedItems();
-        resultBox.style.display = "none";
-        searchBox.value = "";
-    };
-
-    window.removeProduct = function (id) {
-        selectedProducts = selectedProducts.filter(x => x.id !== id);
-        calculateTotal();
-        renderSelectedItems();
-    };
-
-    window.increaseQty = function (id) {
-        let p = selectedProducts.find(x => x.id === id);
-        if (!p) return;
-        p.qty += 1;
-        calculateTotal();
-        renderSelectedItems();
-    };
-
-    window.decreaseQty = function (id) {
-        let p = selectedProducts.find(x => x.id === id);
-        if (!p) return;
-        if (p.qty > 1) p.qty -= 1;
-        else removeProduct(id);
-        calculateTotal();
-        renderSelectedItems();
-    };
-
-    function calculateTotal() {
-        totalAmount = selectedProducts.reduce((sum, x) => sum + x.price * x.qty, 0);
-        total.value = totalAmount;
-        calcNet();
-    }
-
-    function renderSelectedItems() {
-        selectedList.innerHTML = "";
-        selectedProducts.forEach(item => {
-            selectedList.innerHTML += `
-                <li class="list-group-item">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <strong>${item.name}</strong>
-                            <small class='text-muted'> (₹${item.price} each)</small>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-outline-danger" onclick="decreaseQty(${item.id})">-</button>
-                            <button type="button" class="btn btn-sm btn-light disabled">${item.qty}</button>
-                            <button type="button" class="btn btn-sm btn-outline-success" onclick="increaseQty(${item.id})">+</button>
-                        </div>
-                        <button type="button" class="btn btn-sm btn-danger ms-2" onclick="removeProduct(${item.id})">X</button>
-                    </div>
-                </li>`;
+    // ➕ ADD PRODUCT
+    function addProduct(id, name, price) {
+        selectedProducts.push({
+            id,
+            name,
+            price,
+            qty: 1,
+            unit: "Kg"
         });
-        hiddenIds.value = selectedProducts.map(x => x.id + "-" + x.qty).join(",");
+        render();
+        document.getElementById("searchResult").style.display = "none";
+        document.getElementById("productSearch").value = "";
     }
 
-   
-    const form = document.getElementById("saleForm");
+    // 🧮 CALCULATIONS
+    function calcItem(p) {
+        let kgQty = p.unit === "Gram" ? p.qty / 1000 : p.qty;
+        return kgQty * p.price;
+    }
 
-    form.addEventListener("submit", (e) => {
+    function render() {
+        let ul = document.getElementById("selectedProducts");
+        ul.innerHTML = "";
+        let sum = 0;
+
+        selectedProducts.forEach(p => {
+            let itemTotal = calcItem(p);
+            sum += itemTotal;
+
+            ul.innerHTML += `
+            <li class="list-group-item">
+                <b>${p.name}</b>
+                <div class="row mt-2">
+                    <div class="col-4">
+                        <input type="number" step="0.01"
+                               class="form-control"
+                               value="${p.qty}"
+                               onchange="pQty(${p.id}, this.value)">
+                    </div>
+                    <div class="col-3">
+                        <select class="form-select"
+                                onchange="pUnit(${p.id}, this.value)">
+                            <option ${p.unit=="Kg"?"selected":""}>Kg</option>
+                            <option ${p.unit=="Gram"?"selected":""}>Gram</option>
+                            <option ${p.unit=="Pice"?"selected":""}></option>
+                        </select>
+                    </div>
+                    <div class="col-3 fw-bold text-end">
+                        ₹${itemTotal.toFixed(2)}
+                    </div>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-danger btn-sm"
+                                onclick="removeP(${p.id})">X</button>
+                    </div>
+                </div>
+            </li>`;
+        });
+
+        total.value = sum.toFixed(2);
+        net.value = (sum - (discount.value || 0)).toFixed(2);
+    }
+
+    function pQty(id, qty) {
+        selectedProducts.find(x => x.id === id).qty = parseFloat(qty);
+        render();
+    }
+
+    function pUnit(id, u) {
+        selectedProducts.find(x => x.id === id).unit = u;
+        render();
+    }
+
+    function removeP(id) {
+        selectedProducts = selectedProducts.filter(x => x.id !== id);
+        render();
+    }
+
+    // 📤 SUBMIT
+    document.getElementById("saleForm").addEventListener("submit", function () {
+
         if (selectedProducts.length === 0) {
-            alert("Please select at least one product.");
-            e.preventDefault();
+            alert("Please select at least one product");
+            event.preventDefault();
             return;
         }
 
-        
-        selectedProducts.forEach((p, index) => {
-            const inputProductId = document.createElement("input");
-            inputProductId.type = "hidden";
-            inputProductId.name = `Sale.SaleItems[${index}].ProductId`;
-            inputProductId.value = p.id;
-            form.appendChild(inputProductId);
+        selectedProducts.forEach((p, i) => {
 
-            const inputQty = document.createElement("input");
-            inputQty.type = "hidden";
-            inputQty.name = `Sale.SaleItems[${index}].Quantity`;
-            inputQty.value = p.qty;
-            form.appendChild(inputQty);
+            let qtyInKg = p.unit === "Gram" ? p.qty / 1000 : p.qty;
 
-            const inputPrice = document.createElement("input");
-            inputPrice.type = "hidden";
-            inputPrice.name = `Sale.SaleItems[${index}].Price`;
-            inputPrice.value = p.price;
-            form.appendChild(inputPrice);
-
-            const inputTotal = document.createElement("input");
-            inputTotal.type = "hidden";
-            inputTotal.name = `Sale.SaleItems[${index}].Total`;
-            inputTotal.value = p.qty * p.price;
-            form.appendChild(inputTotal);
+            this.appendChild(hidden(`Sale.SaleItems[${i}].ProductId`, p.id));
+            this.appendChild(hidden(`Sale.SaleItems[${i}].Quantity`, qtyInKg));
+            this.appendChild(hidden(`Sale.SaleItems[${i}].Price`, p.price));
+            this.appendChild(hidden(`Sale.SaleItems[${i}].Total`, qtyInKg * p.price));
         });
     });
 
-</script>
-
-<script>
-    let scanner;
-
-    function startScan() {
-        document.getElementById("barcodeScanner").style.display = "block";
-        scanner = new Html5Qrcode("barcodeScanner");
-        scanner.start(
-            { facingMode: "environment" },
-            { fps: 10, qrbox: 250 },
-            scanSuccess
-        );
-    }
-
-    function scanSuccess(code) {
-        scanner.stop().then(() => {
-            document.getElementById("barcodeScanner").style.display = "none";
-        });
-
-        const id = parseInt(code);
-        if (isNaN(id)) return;
-
-        fetch(`/api/Product/GetProduct/${id}`, {
-            headers: {
-                Authorization: 'Bearer @Context.Session.GetString("JWToken")'
-            }
-        })
-        .then(r => r.json())
-        .then(p => addProduct(p.productId, p.productName, p.sellingPrice));
+    function hidden(n, v) {
+        let i = document.createElement("input");
+        i.type = "hidden";
+        i.name = n;
+        i.value = v;
+        return i;
     }
 </script>
 

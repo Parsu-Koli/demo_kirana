@@ -14,8 +14,8 @@ namespace DAL.Repository.Interface
 
         bool IsProductNameExists(string name);
 
-        void DecreaseProductStock(int productId, int qty);
-        void IncreaseProductStock(int productId, int qty);
+        void DecreaseProductStock(int productId, decimal qty);
+        void IncreaseProductStock(int productId, decimal qty);
 
     }
 }
