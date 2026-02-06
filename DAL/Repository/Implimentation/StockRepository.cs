@@ -59,12 +59,15 @@ namespace DAL.Repository.Implementation
             return _context.Stocks.ToList();
         }
 
-        public IEnumerable<Stock> GetLowStock(int limit)
+        public IEnumerable<Stock> GetLowStock(decimal limit)
         {
-            return _context.Stocks.Where(x => x.Quantity <= limit).ToList();
+            return _context.Stocks
+                           .Where(x => x.Quantity <= x.MinimumQuantity)
+                           .ToList();
         }
 
-        public void DecreaseStock(int productId, int qty)
+
+        public void DecreaseStock(int productId, decimal qty)
         {
             var stock = _context.Stocks.FirstOrDefault(x => x.ProductId == productId);
             if (stock == null)
@@ -85,7 +88,7 @@ namespace DAL.Repository.Implementation
         }
 
 
-        public void IncreaseStock(int productId, int qty)
+        public void IncreaseStock(int productId, decimal qty)
         {
             var stock = _context.Stocks.FirstOrDefault(x => x.ProductId == productId);
 

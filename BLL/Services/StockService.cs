@@ -12,7 +12,7 @@ namespace BLL.Services
             _stockRepo = stockRepo;
         }
 
-        public void IncreaseStock(int productId, int qty)
+        public void IncreaseStock(int productId, decimal qty)
         {
             if (productId <= 0)
                 throw new Exception("Invalid Product.");
@@ -23,7 +23,7 @@ namespace BLL.Services
             _stockRepo.IncreaseStock(productId, qty);
         }
 
-        public void DecreaseStock(int productId, int qty)
+        public void DecreaseStock(int productId, decimal qty)
         {
             if (productId <= 0)
                 throw new Exception("Invalid Product.");

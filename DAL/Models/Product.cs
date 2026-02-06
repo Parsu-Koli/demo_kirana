@@ -22,7 +22,7 @@ namespace DAL.Models
         public decimal PurchasePrice { get; set; }
         [Column(TypeName = "decimal(18,2)")]
         public decimal SellingPrice { get; set; }
-        public required int QuantityInStock { get; set; }
+        public required decimal QuantityInStock { get; set; }
         public required bool Active { get; set; }
 
         [JsonIgnore]

@@ -9,8 +9,6 @@
 //}
 
 using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
-
 namespace KiranaStoreUI.Models
 {
     public class Customer

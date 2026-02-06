@@ -36,7 +36,7 @@ namespace DAL.Models
         public int SaleItemId { get; set; }
         public int SaleId { get; set; }        // FK to Sale
         public int ProductId { get; set; }     // FK to Product
-        public int Quantity { get; set; }
+        public decimal Quantity { get; set; }
         public decimal Price { get; set; }     // SellingPrice
         public decimal Total { get; set; }
 
